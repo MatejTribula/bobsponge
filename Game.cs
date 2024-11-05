@@ -8,28 +8,33 @@
         public Game()
         {
             CreateRooms();
+            
+            Inventory? inventory = new Inventory(new List<string>());
         }
 
         private void CreateRooms()
         {
-  
-            Room? outside = new("Outside", "You are standing outside the main entrance of the university. To the east is a large building, to the south is a computing lab, and to the west is the campus pub.");
-            Room? theatre = new("Theatre", "You find yourself inside a large lecture theatre. Rows of seats ascend up to the back, and there's a podium at the front. It's quite dark and quiet.");
-            Room? pub = new("Pub", "You've entered the campus pub. It's a cozy place, with a few students chatting over drinks. There's a bar near you and some pool tables at the far end.");
-            Room? lab = new("Lab", "You're in a computing lab. Desks with computers line the walls, and there's an office to the east. The hum of machines fills the room.");
-            Room? office = new("Office", "You've entered what seems to be an administration office. There's a large desk with a computer on it, and some bookshelves lining one wall.");
+            Room? beach = new("BEACH", "You are on a small sandy beach, the sky is blue, the water is clear, you feel a cool breeze from the sea hitting your face.");
+            Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You can't see where it goes.");
+            Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over.");
+            Room? trash_island = new("TRASH ISLAND", "You're in the middle of the sea. There is trash for hundreds and hundreds\r\nof kilometers in every direction, there is no clear water to be seen.\r\nJust seemingly infinite garbage in every direction.");
+            Room? coral_reefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired.");
+            Room? nuclear_accident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation.");
 
-            outside.SetExits(null, theatre, lab, pub); // North, East, South, West
 
-            theatre.SetExit("west", outside);
+            beach.SetExit("east", whirlpool); // North, East, South, West
 
-            pub.SetExit("east", outside);
+            whirlpool.SetExits(shipwreck, trash_island, coral_reefs, nuclear_accident);
 
-            lab.SetExits(outside, office, null, null);
+            shipwreck.SetExit("south", whirlpool);
 
-            office.SetExit("west", lab);
+            trash_island.SetExit("west", whirlpool);
 
-            currentRoom = outside;
+            coral_reefs.SetExit("north", whirlpool);
+
+            nuclear_accident.SetExit("east", whirlpool);
+
+            currentRoom = beach;
         }
 
         public void Play()
@@ -113,16 +118,21 @@
 
         private static void PrintWelcome()
         {
-            Console.WriteLine("Welcome to the World of Zuul!");
-            Console.WriteLine("World of Zuul is a new, incredibly boring adventure game.");
+            Console.WriteLine("Welcome to Saving The Ocean with Bobsponge!");
+            Console.WriteLine("A game created by the finest video game developers from around the world.");
+            Console.WriteLine("I'm Bobsponge! The ocean desperately needs your help, and I'm here to guide you.");
+
             PrintHelp();
             Console.WriteLine();
         }
 
         private static void PrintHelp()
         {
-            Console.WriteLine("You are lost. You are alone. You wander");
-            Console.WriteLine("around the university.");
+            Console.WriteLine();
+            Console.WriteLine("You look confused.");
+            Console.WriteLine("It's okay, youre safe.");
+            Console.WriteLine("We are on the beach in a cozy little town in Southern Denmark.");
+            Console.WriteLine("I have summoned you as a last resort to help save the Earth's aquatic wildlife.");
             Console.WriteLine();
             Console.WriteLine("Navigate by typing 'north', 'south', 'east', or 'west'.");
             Console.WriteLine("Type 'look' for more details.");
