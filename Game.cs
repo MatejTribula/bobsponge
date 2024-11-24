@@ -107,7 +107,33 @@
                         PrintHelp();
                         break;
 
+                    case "inventory":
+                        // create a method in Invetory.cs for this
+                        Console.WriteLine("Inventory so far !!");
+                        break;
 
+
+                    case "take":
+                        if (command.SecondWord.Length < 1)
+                        {
+                            Console.WriteLine("You did not specify what to pick up!");
+                            break;
+                        }
+
+                        // create adding logic to the Invetory.cs itself and create method for it
+                        break;
+
+                    case "drop":
+                        // works similiarly like take except you have to remove something from the inventory
+                        break;
+
+                    case "open":
+                        // not sure how to make this thing work yet but i will get into it
+                        break;
+
+                    case "talk":
+                        // not sure how to make this thing work yet but i will get into it
+                        break;
 
                     default:
                         Console.WriteLine("I don't know what command.");
