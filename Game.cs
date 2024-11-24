@@ -8,8 +8,6 @@
         public Game()
         {
             CreateRooms();
-
-            Inventory? inventory = new Inventory(new List<string>());
         }
 
         private void CreateRooms()
@@ -51,6 +49,8 @@
 
         public void Play()
         {
+
+            Inventory? inventory = new Inventory(new List<Item>());
             Parser parser = new();
 
             PrintWelcome();
@@ -108,23 +108,24 @@
                         break;
 
                     case "inventory":
-                        // create a method in Invetory.cs for this
-                        Console.WriteLine("Inventory so far !!");
+                        inventory.ShowInventory();
                         break;
 
 
                     case "take":
-                        if (command.SecondWord.Length < 1)
+                        if (command.SecondWord == null)
                         {
                             Console.WriteLine("You did not specify what to pick up!");
                             break;
                         }
 
+                        inventory.AddItem(command.SecondWord, "test");
+
                         // create adding logic to the Invetory.cs itself and create method for it
                         break;
 
                     case "drop":
-                        // works similiarly like take except you have to remove something from the inventory
+                        inventory.DropItem(command.SecondWord);
                         break;
 
                     case "open":
@@ -162,6 +163,7 @@
 
         private static void PrintWelcome()
         {
+            Console.Clear();
             Console.WriteLine("Welcome to Saving The Ocean with Bobsponge!");
             Console.WriteLine("A game created by the finest video game developers from around the world.");
             Console.WriteLine("I'm Bobsponge! The ocean desperately needs your help, and I'm here to guide you.");
@@ -169,7 +171,6 @@
             PrintHelp();
             Console.WriteLine();
         }
-
         private static void PrintHelp()
         {
             Console.WriteLine();
@@ -188,6 +189,12 @@
             Console.WriteLine("Type 'look' for more details.");
             Console.WriteLine("Type 'back' to go to the previous room.");
             Console.WriteLine("Type 'help' to print this message again.");
+            Console.WriteLine("Type 'inventory' to print all the items in your inventory.");
+            Console.WriteLine("Type 'take' + name of the item you want to add to your inventory.");
+            Console.WriteLine("Type 'drop'  + name of the item you want to drop from your inventory.");
+            Console.WriteLine("Type 'open'  idk yet.");
+            Console.WriteLine("Type 'drop'  idk yet");
+
             Console.WriteLine("Type 'quit' to exit the game.");
         }
     }
