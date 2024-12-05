@@ -16,6 +16,9 @@
             // DONE add Kader level
             Room? beach = new("BEACH", "You are on a small sandy beach, the sky is blue, the water is clear, you feel a cool breeze from the sea hitting your face. You can see the SEA in front of you facing NORTH");
 
+            Item branch = new Item("branch", "just a normal branch", true, false);
+            ItemManager.AddItem(branch, beach.Items);
+
             Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
 
             Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore, however you can vaguely see a SHIPWRECK to the NORTH, TRASH ISLAND to the EAST, CORAL REEFS to the SOUTH and a NUCLEAR ACCIDENT to the WEST");
@@ -50,7 +53,7 @@
         public void Play()
         {
 
-            Inventory? inventory = new Inventory(new List<Item>());
+            Inventory inventory = Inventory.Instance("Inventory", new List<Item>());
             Parser parser = new();
 
             PrintWelcome();
@@ -58,7 +61,6 @@
             bool continuePlaying = true;
             while (continuePlaying)
             {
-                // if player has completed level ad Console.WriteLine("You have already completed this level!");
 
                 Console.WriteLine(currentRoom?.ShortDescription);
                 Console.Write("> ");
@@ -108,7 +110,7 @@
                         break;
 
                     case "inventory":
-                        inventory.ShowInventory();
+                        inventory.ShowItems();
                         break;
 
 
@@ -119,20 +121,37 @@
                             break;
                         }
 
-                        inventory.AddItem(command.SecondWord, "test");
-
-                        // create adding logic to the Invetory.cs itself and create method for it
+                        // move item from room to inventory
+                        ItemManager.MoveItem(command.SecondWord, currentRoom.Items, inventory.Items);
+                        Console.WriteLine("You picked up " + command.SecondWord + "!");
                         break;
 
                     case "drop":
-                        inventory.DropItem(command.SecondWord);
+                        if (command.SecondWord == null)
+                        {
+                            Console.WriteLine("You did not specify what to drop!");
+                            break;
+                        }
+
+                        // move item from the invetory on the ground
+                        ItemManager.MoveItem(command.SecondWord, inventory.Items, currentRoom.Items);
+
+                        Console.WriteLine("You dropped " + command.SecondWord + "!");
                         break;
 
                     case "open":
                         // not sure how to make this thing work yet but i will get into it
+                        // 
                         break;
 
                     case "talk":
+                        // not sure how to make this thing work yet but i will get into it
+                        break;
+
+                    case "ask":
+                        break;
+
+                    case "start":
                         // not sure how to make this thing work yet but i will get into it
                         break;
 
@@ -191,9 +210,12 @@
             Console.WriteLine("Type 'help' to print this message again.");
             Console.WriteLine("Type 'inventory' to print all the items in your inventory.");
             Console.WriteLine("Type 'take' + name of the item you want to add to your inventory.");
-            Console.WriteLine("Type 'drop'  + name of the item you want to drop from your inventory.");
-            Console.WriteLine("Type 'open'  idk yet.");
-            Console.WriteLine("Type 'drop'  idk yet");
+            Console.WriteLine("Type 'drop' + name of the item you want to drop from your inventory.");
+
+            // these are not finished yet
+            Console.WriteLine("Type 'open' idk yet.");
+            Console.WriteLine("Type 'talk' idk yet");
+            Console.WriteLine("Type 'start' to start a minigame");
 
             Console.WriteLine("Type 'quit' to exit the game.");
         }

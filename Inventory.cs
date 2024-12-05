@@ -1,63 +1,23 @@
 namespace WorldOfZuul;
 
-class Inventory
+public class Inventory : ItemStorage
 {
-    List<Item> Items { get; set; }
+    private static Inventory _instance;
 
-    public Inventory(List<Item> initial_items)
+    // private constructor to prevent direct instantiation
+    private Inventory(string name, List<Item> items) : base(name, items)
     {
-        Items = initial_items;
     }
 
-
-    public void ShowInventory()
+    // public static property to get the single instance
+    public static Inventory Instance(string name, List<Item> items)
     {
-        int numberOfItems = Items.Count();
-        if (numberOfItems == 0)
+        if (_instance == null)
         {
-            Console.WriteLine("Your inventory is empty!");
+            _instance = new Inventory(name, items);
         }
-        else
-        {
-            Console.WriteLine("There are " + numberOfItems + " items in your Inventory:");
-            foreach (Item item in Items)
-            {
-                Console.WriteLine(item.Name);
-            }
-        }
+        return _instance;
     }
-
-    public void AddItem(string input, string level)
-    {
-        if (input != null && input.Length > 0)
-        {
-            Items.Add(new Item(input, level, true, false));
-            Console.WriteLine("You have picked up an item called " + input + ", and succesfully added to the Inventory");
-        }
-    }
-
-
-    public void DropItem(string input)
-    {
-        Item removedItem = Items.Find(item => item.Name == input);
-        if (removedItem != null)
-        {
-            if (removedItem.IsDroppable)
-            {
-                Items.Remove(removedItem);
-                Console.WriteLine("You have dropped " + removedItem.Name);
-            }
-            else
-            {
-                Console.WriteLine("You cannot drop this item!");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Your Inventory does not contain this item!");
-        }
-    }
-
 
 
 }

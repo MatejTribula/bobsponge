@@ -9,7 +9,8 @@ namespace WorldOfZuul
     public class CommandWords
     {
         // DONE add inventory, take, drop, open, talk as valid commands
-        public List<string> ValidCommands { get; } = new List<string> { "north", "east", "south", "west", "look", "back", "quit", "inventory", "take", "drop", "open", "talk" };
+        // add ask command
+        public List<string> ValidCommands { get; } = new List<string> { "north", "east", "south", "west", "look", "back", "quit", "inventory", "take", "drop", "open", "talk", "ask" };
 
         public bool IsValidCommand(string command)
         {

@@ -4,16 +4,27 @@ namespace WorldOfZuul;
 public class Item
 {
     public string Name { get; private set; }
-    private string levelOfOrigin;
-    public bool IsDroppable { get; private set; }
-    private bool isMythic;
+    public string Description { get; private set; }
+    private enum LevelOfOrigin
+    {
+        Beach,
+        Sea,
+        Shipwreck,
+        TrashIsland,
+        CoralReefs,
+        NuclearAccident
+    };
+    public bool IsDroppable { get; }
+    public bool IsInInventory { get; set; }
 
-    public Item(string name, string level, bool isDroppable, bool isMythic)
+
+    public Item(string name, string description, bool IsDroppable, bool IsInInventory)
     {
         this.Name = name;
-        this.levelOfOrigin = level;
-        this.IsDroppable = isDroppable;
-        this.isMythic = isMythic;
+        this.Description = description;
+        // this.levelOfOrigin = level;
+        this.IsDroppable = IsDroppable;
+        this.IsInInventory = IsInInventory;
     }
 
 }

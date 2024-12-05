@@ -4,12 +4,18 @@
     {
         public string ShortDescription { get; private set; }
         public string LongDescription { get; private set; }
+
+        public List<Item> Items;
         public Dictionary<string, Room> Exits { get; private set; } = new();
+
+
 
         public Room(string shortDesc, string longDesc)
         {
-            ShortDescription = shortDesc;
-            LongDescription = longDesc;
+            this.ShortDescription = shortDesc;
+            this.LongDescription = longDesc;
+            this.Items = new List<Item>();
+
         }
 
         public void SetExits(Room? north, Room? east, Room? south, Room? west)
