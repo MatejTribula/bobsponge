@@ -3,13 +3,13 @@ namespace WorldOfZuul;
 
 public class ItemStorage
 {
-    private string name;
+    public string Name { get; }
     public List<Item> Items;
 
 
     public ItemStorage(string name, List<Item> items)
     {
-        this.name = name;
+        this.Name = name;
         this.Items = items;
     }
 
@@ -18,11 +18,11 @@ public class ItemStorage
         int numberOfItems = this.Items.Count();
         if (numberOfItems == 0)
         {
-            Console.WriteLine(this.name + " is empty!");
+            Console.WriteLine(this.Name + " is empty!");
         }
         else
         {
-            Console.WriteLine("There are " + numberOfItems + " items in the " + this.name + ": ");
+            Console.WriteLine("There are " + numberOfItems + " items in the " + this.Name + ": ");
             foreach (Item item in Items)
             {
                 Console.WriteLine(item.Name);

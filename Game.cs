@@ -5,6 +5,8 @@
         private Room? currentRoom;
         private Room? previousRoom;
 
+        private Container? currentContainer;
+
         public Game()
         {
             CreateRooms();
@@ -16,8 +18,12 @@
             // DONE add Kader level
             Room? beach = new("BEACH", "You are on a small sandy beach, the sky is blue, the water is clear, you feel a cool breeze from the sea hitting your face. You can see the SEA in front of you facing NORTH");
 
-            Item branch = new Item("branch", "just a normal branch", true, false);
-            ItemManager.AddItem(branch, beach.Items);
+
+            ItemManager.AddItem("branch", "just a normal branch", true, false, beach.Items);
+
+            Container chest = new Container("chest", new List<Item>());
+            beach.SetContainer(chest);
+            ItemManager.AddItem("crab", "just a normal crab", true, false, chest.Items);
 
             Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
 
@@ -81,6 +87,18 @@
                     continue;
                 }
 
+                // might make more sense a a method
+                if (command.Name != "loot" && currentContainer != null)
+                {
+
+                    Console.WriteLine(command.Name);
+                    Console.WriteLine("You have closed the " + currentContainer.Name);
+
+                    currentContainer = null;
+                    continue;
+                }
+
+
                 switch (command.Name)
                 {
                     case "look":
@@ -101,47 +119,68 @@
                         Move(command.Name);
                         break;
 
+                    case "help":
+                        PrintHelp();
+                        break;
+
                     case "quit":
                         continuePlaying = false;
                         break;
 
-                    case "help":
-                        PrintHelp();
+                    case "start":
+                        // not sure how to make this thing work yet but i will get into it
                         break;
 
                     case "inventory":
                         inventory.ShowItems();
                         break;
 
-
                     case "take":
-                        if (command.SecondWord == null)
-                        {
-                            Console.WriteLine("You did not specify what to pick up!");
-                            break;
-                        }
-
-                        // move item from room to inventory
-                        ItemManager.MoveItem(command.SecondWord, currentRoom.Items, inventory.Items);
-                        Console.WriteLine("You picked up " + command.SecondWord + "!");
+                        MoveItem(command.Name, command.SecondWord, currentRoom.Items, inventory.Items);
                         break;
 
                     case "drop":
+                        MoveItem(command.Name, command.SecondWord, inventory.Items, currentRoom.Items);
+                        break;
+
+
+                    // opens selected container inside the room
+                    case "open":
                         if (command.SecondWord == null)
                         {
-                            Console.WriteLine("You did not specify what to drop!");
+                            Console.WriteLine("You did not specify what to open!");
                             break;
                         }
 
-                        // move item from the invetory on the ground
-                        ItemManager.MoveItem(command.SecondWord, inventory.Items, currentRoom.Items);
+                        Container openedContainer = currentRoom.Containers.Find(container => container.Name.Equals(command.SecondWord, StringComparison.OrdinalIgnoreCase));
 
-                        Console.WriteLine("You dropped " + command.SecondWord + "!");
+                        if (openedContainer == null)
+                        {
+                            Console.WriteLine("Container not found!");
+                            break;
+                        }
+
+                        openedContainer.ShowItems();
+                        if (openedContainer.Items.Count > 0)
+                        {
+                            currentContainer = openedContainer;
+                            Console.WriteLine("Would you like to loot the " + openedContainer.Name + "? (type loot)");
+                        }
+
                         break;
 
-                    case "open":
-                        // not sure how to make this thing work yet but i will get into it
-                        // 
+                    // loots opened container
+                    case "loot":
+                        if (currentContainer == null)
+                        {
+                            Console.WriteLine("There is nothing to loot!");
+                            break;
+                        }
+
+                        ItemManager.MoveAll(currentContainer.Items, inventory.Items);
+
+                        Console.WriteLine("You looted the " + currentContainer.Name + "!");
+                        currentContainer = null;
                         break;
 
                     case "talk":
@@ -151,14 +190,13 @@
                     case "ask":
                         break;
 
-                    case "start":
-                        // not sure how to make this thing work yet but i will get into it
-                        break;
-
                     default:
                         Console.WriteLine("I don't know what command.");
                         break;
+
+
                 }
+
             }
 
 
@@ -194,15 +232,6 @@
         {
             Console.WriteLine();
 
-            //    i do not like these
-            /*  
-            Console.WriteLine("You look confused.");
-            Console.WriteLine("It's okay, youre safe.");
-            
-            Console.WriteLine("We are on the beach in a cozy little town in Southern Denmark.");
-            Console.WriteLine("I have summoned you as a last resort to help save the Earth's aquatic wildlife.");
-            Console.WriteLine(); 
-            */
 
             Console.WriteLine("Navigate by typing 'north', 'south', 'east', or 'west'.");
             Console.WriteLine("Type 'look' for more details.");
@@ -213,11 +242,37 @@
             Console.WriteLine("Type 'drop' + name of the item you want to drop from your inventory.");
 
             // these are not finished yet
-            Console.WriteLine("Type 'open' idk yet.");
+            Console.WriteLine("Type 'open' + name of the container you want to open.");
             Console.WriteLine("Type 'talk' idk yet");
             Console.WriteLine("Type 'start' to start a minigame");
 
             Console.WriteLine("Type 'quit' to exit the game.");
         }
+
+
+
+
+        private void MoveItem(string firstWord, string secondWord, List<Item> sourceList, List<Item> targerList)
+        {
+            Item movedItem = ItemManager.FindItem(secondWord, sourceList);
+
+            ItemManager.MoveItem(secondWord, sourceList, targerList);
+
+            if (movedItem == null)
+            {
+                return;
+            }
+
+            if (firstWord == "take")
+            {
+                Console.WriteLine("You took " + secondWord + "!");
+            }
+            else if (firstWord == "drop")
+            {
+                Console.WriteLine("You dropped " + secondWord + "!");
+            }
+
+        }
     }
+
 }

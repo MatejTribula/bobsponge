@@ -6,6 +6,7 @@
         public string LongDescription { get; private set; }
 
         public List<Item> Items;
+        public List<Container> Containers;
         public Dictionary<string, Room> Exits { get; private set; } = new();
 
 
@@ -15,6 +16,7 @@
             this.ShortDescription = shortDesc;
             this.LongDescription = longDesc;
             this.Items = new List<Item>();
+            this.Containers = new List<Container>();
 
         }
 
@@ -30,6 +32,11 @@
         {
             if (neighbor != null)
                 Exits[direction] = neighbor;
+        }
+
+        public void SetContainer(Container container)
+        {
+            Containers.Add(container);
         }
     }
 }

@@ -3,16 +3,15 @@ namespace WorldOfZuul;
 public static class ItemManager
 {
 
-    public static void AddItem(Item item, List<Item> targetList)
+    public static void AddItem(string name, string description, bool isDroppable, bool isInInventory, List<Item> targetList)
     {
-        targetList.Add(item);
+        targetList.Add(new Item(name, description, isDroppable, isInInventory));
     }
 
     // move  item from source to target list
     public static void MoveItem(string input, List<Item> sourceList, List<Item> targetList)
     {
-        Item movedItem = sourceList.Find(item => item.Name.Equals(input, StringComparison.OrdinalIgnoreCase));
-
+        Item movedItem = FindItem(input, sourceList);
 
         // item was not found
         if (movedItem == null)
@@ -30,7 +29,7 @@ public static class ItemManager
 
         targetList.Add(movedItem);
         sourceList.Remove(movedItem);
-        // 
+
         movedItem.IsInInventory = !movedItem.IsInInventory;
     }
 
@@ -48,7 +47,7 @@ public static class ItemManager
 
         if (sourceList.Count == 0)
         {
-            Console.WriteLine("Source list is empty!");
+            Console.WriteLine("It is empty!");
             return;
         }
 
@@ -63,5 +62,10 @@ public static class ItemManager
     public static void RemoveAll(List<Item> targetList)
     {
         targetList.Clear();
+    }
+
+    public static Item FindItem(string input, List<Item> list)
+    {
+        return list.Find(item => item.Name.Equals(input, StringComparison.OrdinalIgnoreCase));
     }
 }
