@@ -6,6 +6,7 @@
         private Room? previousRoom;
 
         private Container? currentContainer;
+        private NPC? currentNPC;
 
         public Game()
         {
@@ -21,9 +22,14 @@
 
             ItemManager.AddItem("branch", "just a normal branch", true, false, beach.Items);
 
-            Container chest = new Container("chest", new List<Item>());
+            Container chest = new Container("chest");
             beach.SetContainer(chest);
             ItemManager.AddItem("crab", "just a normal crab", true, false, chest.Items);
+
+            NPC patrick = new NPC("patrick the star", "Heeeeey!");
+            patrick.AddQA("who are you?", "I AM PATRICK THE STAR!!");
+            beach.NPCs.Add("patrick", patrick);
+
 
             Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
 
@@ -59,7 +65,7 @@
         public void Play()
         {
 
-            Inventory inventory = Inventory.Instance("Inventory", new List<Item>());
+            Inventory inventory = Inventory.Instance("Inventory");
             Parser parser = new();
 
             PrintWelcome();
@@ -95,6 +101,39 @@
                     Console.WriteLine("You have closed the " + currentContainer.Name);
 
                     currentContainer = null;
+                    continue;
+                }
+
+
+                // if current npc exists 
+                // if input <= current npc count
+                // show the answer to the question with input index
+                // else tell player that this is an invalid input
+                // afterwards print all the questions again
+                if (int.TryParse(input, out int _) && currentNPC != null)
+                {
+                    currentNPC.ShowQuestions();
+                    int intInput = Convert.ToInt32(input);
+
+
+                    if (intInput <= currentNPC.Questions.Count)
+                    {
+                        currentNPC.Talk(intInput);
+                        continue;
+                    }
+
+                    Console.WriteLine("You entered invalid number of question!");
+
+                    continue;
+
+                }
+
+                // if currentNPC != null && input is not numbe stop talking to the npc
+                if (!int.TryParse(input, out int _) && currentNPC != null)
+                {
+                    Console.WriteLine($"You stopped talking to {currentNPC.Name}");
+                    currentNPC = null;
+
                     continue;
                 }
 
@@ -164,7 +203,7 @@
                         if (openedContainer.Items.Count > 0)
                         {
                             currentContainer = openedContainer;
-                            Console.WriteLine("Would you like to loot the " + openedContainer.Name + "? (type loot)");
+                            Console.WriteLine($"Would you like to loot the {openedContainer.Name}? (type loot)");
                         }
 
                         break;
@@ -183,12 +222,33 @@
                         currentContainer = null;
                         break;
 
+                    // starts talking to selected npc if it is in the room
                     case "talk":
-                        // not sure how to make this thing work yet but i will get into it
+                        if (!string.IsNullOrEmpty(command.SecondWord))
+                        {
+
+                            if (currentRoom.NPCs.ContainsKey(command.SecondWord))
+                            {
+
+                                NPC npc = currentRoom.NPCs[command.SecondWord];
+
+                                currentNPC = npc;
+                                currentNPC.PrintGreeting();
+                                currentNPC.ShowQuestions();
+
+                                break;
+                            }
+
+
+                            Console.WriteLine($"There is no one named {command.SecondWord} here to talk to.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("You need to specify who you want to talk to.");
+                        }
                         break;
 
-                    case "ask":
-                        break;
+
 
                     default:
                         Console.WriteLine("I don't know what command.");
@@ -196,6 +256,7 @@
 
 
                 }
+                Console.WriteLine("");
 
             }
 
@@ -243,7 +304,7 @@
 
             // these are not finished yet
             Console.WriteLine("Type 'open' + name of the container you want to open.");
-            Console.WriteLine("Type 'talk' idk yet");
+            Console.WriteLine("Type 'talk' + first name of the character you want to talk to");
             Console.WriteLine("Type 'start' to start a minigame");
 
             Console.WriteLine("Type 'quit' to exit the game.");

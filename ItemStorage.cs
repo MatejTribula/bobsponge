@@ -4,13 +4,12 @@ namespace WorldOfZuul;
 public class ItemStorage
 {
     public string Name { get; }
-    public List<Item> Items;
+    public List<Item> Items = new();
 
 
-    public ItemStorage(string name, List<Item> items)
+    public ItemStorage(string name)
     {
         this.Name = name;
-        this.Items = items;
     }
 
     public void ShowItems()

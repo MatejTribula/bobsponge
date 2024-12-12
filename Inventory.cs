@@ -5,16 +5,16 @@ public class Inventory : ItemStorage
     private static Inventory _instance;
 
     // private constructor to prevent direct instantiation
-    private Inventory(string name, List<Item> items) : base(name, items)
+    private Inventory(string name) : base(name)
     {
     }
 
     // public static property to get the single instance
-    public static Inventory Instance(string name, List<Item> items)
+    public static Inventory Instance(string name)
     {
         if (_instance == null)
         {
-            _instance = new Inventory(name, items);
+            _instance = new Inventory(name);
         }
         return _instance;
     }

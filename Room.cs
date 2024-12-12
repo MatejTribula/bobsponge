@@ -5,8 +5,9 @@
         public string ShortDescription { get; private set; }
         public string LongDescription { get; private set; }
 
-        public List<Item> Items;
-        public List<Container> Containers;
+        public List<Item> Items = new();
+        public List<Container> Containers = new();
+        public Dictionary<string, NPC> NPCs = new();
         public Dictionary<string, Room> Exits { get; private set; } = new();
 
 
@@ -15,9 +16,6 @@
         {
             this.ShortDescription = shortDesc;
             this.LongDescription = longDesc;
-            this.Items = new List<Item>();
-            this.Containers = new List<Container>();
-
         }
 
         public void SetExits(Room? north, Room? east, Room? south, Room? west)
