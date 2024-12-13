@@ -93,14 +93,15 @@
                     continue;
                 }
 
+
                 // might make more sense a a method
-                if (command.Name != "loot" && currentContainer != null)
+                // checks if there is any other input while there is an open chest/ player is talking to an NPC
+                if (((command.Name != "loot" && command.Name != "close") && currentContainer != null) || (command.Name != "bye" && currentNPC != null)
+                 )
                 {
-
                     Console.WriteLine(command.Name);
-                    Console.WriteLine("You have closed the " + currentContainer.Name);
+                    Console.WriteLine("You cannot do that now");
 
-                    currentContainer = null;
                     continue;
                 }
 
@@ -113,6 +114,7 @@
                 if (int.TryParse(input, out int _) && currentNPC != null)
                 {
                     currentNPC.ShowQuestions();
+                    Console.WriteLine("Stop talking? (type bye)");
                     int intInput = Convert.ToInt32(input);
 
 
@@ -128,14 +130,7 @@
 
                 }
 
-                // if currentNPC != null && input is not numbe stop talking to the npc
-                if (!int.TryParse(input, out int _) && currentNPC != null)
-                {
-                    Console.WriteLine($"You stopped talking to {currentNPC.Name}");
-                    currentNPC = null;
 
-                    continue;
-                }
 
 
                 switch (command.Name)
@@ -204,6 +199,7 @@
                         {
                             currentContainer = openedContainer;
                             Console.WriteLine($"Would you like to loot the {openedContainer.Name}? (type loot)");
+                            Console.WriteLine($"Would you like to close chest? (type close)");
                         }
 
                         break;
@@ -222,6 +218,17 @@
                         currentContainer = null;
                         break;
 
+                    case "close":
+                        if (currentContainer == null)
+                        {
+                            Console.WriteLine("There is nothing to close!");
+                            break;
+                        }
+                        Console.WriteLine("You have closed the " + currentContainer.Name);
+
+                        currentContainer = null;
+                        break;
+
                     // starts talking to selected npc if it is in the room
                     case "talk":
                         if (!string.IsNullOrEmpty(command.SecondWord))
@@ -235,6 +242,7 @@
                                 currentNPC = npc;
                                 currentNPC.PrintGreeting();
                                 currentNPC.ShowQuestions();
+                                Console.WriteLine("Stop talking? (type bye)");
 
                                 break;
                             }
@@ -248,6 +256,16 @@
                         }
                         break;
 
+                    case "bye":
+                        if (currentNPC == null)
+                        {
+                            Console.WriteLine("You are not talking to anyone!");
+                            break;
+                        }
+
+                        Console.WriteLine($"You stopped talking to {currentNPC.Name}");
+                        currentNPC = null;
+                        break;
 
 
                     default:
@@ -302,9 +320,10 @@
             Console.WriteLine("Type 'take' + name of the item you want to add to your inventory.");
             Console.WriteLine("Type 'drop' + name of the item you want to drop from your inventory.");
 
-            // these are not finished yet
             Console.WriteLine("Type 'open' + name of the container you want to open.");
             Console.WriteLine("Type 'talk' + first name of the character you want to talk to");
+
+            // this one is not done
             Console.WriteLine("Type 'start' to start a minigame");
 
             Console.WriteLine("Type 'quit' to exit the game.");
