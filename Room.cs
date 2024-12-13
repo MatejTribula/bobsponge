@@ -36,5 +36,63 @@
         {
             Containers.Add(container);
         }
+        public void SetNPC(string name, NPC npc)
+        {
+            NPCs.Add(name, npc);
+        }
+
+        public void PrintEverything()
+        {
+            Console.WriteLine(LongDescription);
+
+            PrintItems();
+            PrintContainers();
+            PrintNPCs();
+        }
+
+        private void PrintItems()
+        {
+            if (Items.Count == 0) return;
+
+            if (Items.Count == 1)
+            {
+                Console.WriteLine($"You can see an item: {Items[0].Name}");
+            }
+            else
+            {
+                Console.WriteLine("You can see some items:");
+                Console.WriteLine(string.Join(", ", Items.Select(item => item.Name)));
+            }
+        }
+
+        private void PrintContainers()
+        {
+            if (Containers.Count == 0) return;
+
+            if (Containers.Count == 1)
+            {
+                Console.WriteLine($"There is a container that looks like: {Containers[0].Name}");
+            }
+            else
+            {
+                Console.WriteLine("You can see multiple containers:");
+                Console.WriteLine(string.Join(", ", Containers.Select(container => container.Name)));
+            }
+        }
+
+        private void PrintNPCs()
+        {
+            if (NPCs.Count == 0) return;
+
+            if (NPCs.Count == 1)
+            {
+                Console.WriteLine($"There is a being called: {NPCs.ElementAt(0).Value.Name}");
+            }
+            else
+            {
+                Console.WriteLine("You can see multiple characters:");
+                Console.WriteLine(string.Join(", ", NPCs.Values.Select(npc => npc.Name)));
+            }
+        }
     }
 }

@@ -26,9 +26,9 @@
             beach.SetContainer(chest);
             ItemManager.AddItem("crab", "just a normal crab", true, false, chest.Items);
 
-            NPC patrick = new NPC("patrick the star", "Heeeeey!");
+            NPC patrick = new NPC("patrick", "Heeeeey!");
             patrick.AddQA("who are you?", "I AM PATRICK THE STAR!!");
-            beach.NPCs.Add("patrick", patrick);
+            beach.SetNPC("patrick", patrick);
 
 
             Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
@@ -37,7 +37,11 @@
 
             Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over. You can go back to the WHIRLPOOL by going SOUTH");
 
-            Room? trash_island = new("TRASH ISLAND", "You're in the middle of the sea. There is trash for hundreds and hundreds\r\nof kilometers in every direction, there is no clear water to be seen.\r\nJust seemingly infinite garbage in every direction. You can go back to the WHIRLPOOL by going WEST");
+            Room? trash_island = new("TRASH ISLAND, CENTER", "You're in the middle of the sea. There is trash for hundreds and hundreds\r\nof kilometers in every direction, there is no clear water to be seen.\r\nJust seemingly infinite garbage in every direction. You can go back to the WHIRLPOOL by going WEST");
+
+            Room? sea_sludge = new("TRASH ISLAND, SEA OF SLUDGE", "");
+            Room? junk_creater = new("TRASH ISLAND, CREATER OF JUNK", "");
+            Room? glass_canyon = new("TRASH ISLAND, GLASS CANYON", "");
 
             Room? coral_reefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired. You can go back to the WHIRLPOOL by going NORTH");
 
@@ -53,7 +57,11 @@
 
             shipwreck.SetExit("south", whirlpool);
 
-            trash_island.SetExit("west", whirlpool);
+
+            // matej's level
+            trash_island.SetExits(sea_sludge, junk_creater, glass_canyon, whirlpool);
+
+
 
             coral_reefs.SetExit("north", whirlpool);
 
@@ -136,7 +144,7 @@
                 switch (command.Name)
                 {
                     case "look":
-                        Console.WriteLine(currentRoom?.LongDescription);
+                        currentRoom.PrintEverything();
                         break;
 
                     case "back":
