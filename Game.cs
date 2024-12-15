@@ -37,11 +37,56 @@
 
             Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over. You can go back to the WHIRLPOOL by going SOUTH");
 
-            Room? trash_island = new("TRASH ISLAND, CENTER", "You're in the middle of the sea. There is trash for hundreds and hundreds\r\nof kilometers in every direction, there is no clear water to be seen.\r\nJust seemingly infinite garbage in every direction. You can go back to the WHIRLPOOL by going WEST");
 
-            Room? sea_sludge = new("TRASH ISLAND, SEA OF SLUDGE", "");
-            Room? junk_creater = new("TRASH ISLAND, CREATER OF JUNK", "");
-            Room? glass_canyon = new("TRASH ISLAND, GLASS CANYON", "");
+            // matej's level
+
+            // CENTER
+            Room? trashIsland = new("TRASH ISLAND, CENTER", "Somehow you managed to enter the center of the trash island. There is trash for hundreds and hundreds\r\nof kilometers in every direction, there is no clear water to be seen. Just seemingly infinite garbage in every direction.");
+
+            ItemManager.AddItem("robotic-arm", "a robotic arm of the robot located somewhere in TRASH ISLAND", false, false, trashIsland.Items);
+
+            // JUNK CREATER
+            Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
+
+
+
+            // SEA OF SLUDGE
+            Room? seaSludge = new("TRASH ISLAND, SEA OF SLUDGE", "The Sea of Sludge is a murky stretch of water, thick with oil, plastic, and chemicals. Trash floats everywhere, and the air smells rotten. The waves barely move, carrying more waste with each pass. It’s a grim reminder of how pollution is poisoning the sea");
+
+            Container sludgeBarrel = new Container("barrel");
+            ItemManager.AddItem("fishing-net", "Fishing net, that might be of use later!", false, false, sludgeBarrel.Items);
+            ItemManager.AddItem("WD40", "Great rust remover!", true, false, sludgeBarrel.Items);
+            junkCreater.SetContainer(sludgeBarrel);
+
+            NPC seal = new("seal", "Hello there...");
+
+            seal.AddQA("Who are you?", "I am just an ordinary seal...");
+            seal.AddQA("Why are you here?", "Well I got lost...");
+            seal.AddQA("Why do you look so tired?", "I have unfortunately consumed something that is causing me a great pain...");
+            seal.AddQA("How can I help you?", "I do not think that you will be able to help me anymore. It is too late... The only wish I have now is to prevent this from happening to any other creature ever again!");
+
+            seaSludge.SetNPC("seal", seal);
+
+            // GLASS CANYON
+            Room? glassCanyon = new("TRASH ISLAND, GLASS CANYON", "Amid all the trash, a canyon made of glass bottles, jars, mobile screens and other similiar objects was created. At first glance it looks marvelous, reflecting light in a way that makes it appear shiny and almost magical. However, its existence raises some unsettling questions");
+
+            NPC robot = new("robot", "Beep scanning beep");
+            robot.AddQA("Who are you?", "Me? I am just a robot that was designed to fix a problem made by humans. Who could have known I was doing the opposite?");
+            robot.AddQA("Why are you here?", "I was meant to clear ocean of all the junk created by people on the mainland, trash they dumped into rivers and seas instead of recycling, which eventually reached the oceans. The fishing industry has also contributed significantly by leaving behind fishing nets, hooks, and other hazardous items, causing the death of marine life.");
+
+            robot.AddQA("What is this place?", "This... This is the result of people's ignorance, an island of trash. It's a so-called 'temporary solution', where people on the mainland dispose of waste they no longer need, sacrificing the marine ecosystem in return. But what they fail to realize is that this trash is poisoning the water, killing marine life, and ultimately, it will come back to haunt humanity as the balance of nature collapses.");
+
+            robot.AddQA("Why is here so much glass here?", "This is the last thing I managed to do. I collected all the glass inside the trash island and left it here. Glass does not damage the sea, but it can still injure the marine life. Despite all the negatives it is unbelievably beautiful isn't it?");
+
+            robot.AddQA("Why are you missing an arm?", "I was badly damaged by a fishing hook and lost it somewhere in the TRASH ISLAND. You can take it if you find it, it might be useful to you later.");
+
+            robot.AddQA("How can I help?", "If I could, I would have done it myself. Unfortunately, I am unable to move because I was damaged while dealing with the trash. You must stop new trash from reaching this island. The junk already here is entangled with marine life, and removing it would only harm them further. Head to the CRATER OF JUNK that is to the NORTH of the CENTER of the TRASH ISLAND. There you will be able to get rid of all the incoming trash and sort it");
+
+            robot.AddQA("Have you met anyone here?", "No I haven't, however I have seen some creature entering SEA OF SLUDGE that is to the EAST of the CENTER of the TRASH ISLAND.");
+
+            glassCanyon.SetNPC("robot", robot);
+
+
 
             Room? coral_reefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired. You can go back to the WHIRLPOOL by going NORTH");
 
@@ -53,13 +98,13 @@
 
 
 
-            whirlpool.SetExits(shipwreck, trash_island, coral_reefs, nuclear_accident);
+            whirlpool.SetExits(shipwreck, trashIsland, coral_reefs, nuclear_accident);
 
             shipwreck.SetExit("south", whirlpool);
 
 
             // matej's level
-            trash_island.SetExits(sea_sludge, junk_creater, glass_canyon, whirlpool);
+            trashIsland.SetExits(junkCreater, seaSludge, glassCanyon, whirlpool);
 
 
 
@@ -81,7 +126,6 @@
             bool continuePlaying = true;
             while (continuePlaying)
             {
-
                 Console.WriteLine(currentRoom?.ShortDescription);
                 Console.Write("> ");
 
@@ -101,19 +145,6 @@
                     continue;
                 }
 
-
-                // might make more sense a a method
-                // checks if there is any other input while there is an open chest/ player is talking to an NPC
-                if (((command.Name != "loot" && command.Name != "close") && currentContainer != null) || (command.Name != "bye" && currentNPC != null)
-                 )
-                {
-                    Console.WriteLine(command.Name);
-                    Console.WriteLine("You cannot do that now");
-
-                    continue;
-                }
-
-
                 // if current npc exists 
                 // if input <= current npc count
                 // show the answer to the question with input index
@@ -123,6 +154,7 @@
                 {
                     currentNPC.ShowQuestions();
                     Console.WriteLine("Stop talking? (type bye)");
+                    Console.WriteLine();
                     int intInput = Convert.ToInt32(input);
 
 
@@ -138,8 +170,16 @@
 
                 }
 
+                // might make more sense a a method
+                // checks if there is any other input while there is an open chest/ player is talking to an NPC
+                if ((command.Name != "loot" && command.Name != "close" && currentContainer != null) || (command.Name != "bye" && currentNPC != null)
+                 )
+                {
+                    Console.WriteLine(command.Name);
+                    Console.WriteLine("You cannot do that now");
 
-
+                    continue;
+                }
 
                 switch (command.Name)
                 {
@@ -319,7 +359,6 @@
         {
             Console.WriteLine();
 
-
             Console.WriteLine("Navigate by typing 'north', 'south', 'east', or 'west'.");
             Console.WriteLine("Type 'look' for more details.");
             Console.WriteLine("Type 'back' to go to the previous room.");
@@ -327,13 +366,11 @@
             Console.WriteLine("Type 'inventory' to print all the items in your inventory.");
             Console.WriteLine("Type 'take' + name of the item you want to add to your inventory.");
             Console.WriteLine("Type 'drop' + name of the item you want to drop from your inventory.");
-
             Console.WriteLine("Type 'open' + name of the container you want to open.");
             Console.WriteLine("Type 'talk' + first name of the character you want to talk to");
 
             // this one is not done
             Console.WriteLine("Type 'start' to start a minigame");
-
             Console.WriteLine("Type 'quit' to exit the game.");
         }
 

@@ -44,10 +44,26 @@
         public void PrintEverything()
         {
             Console.WriteLine(LongDescription);
+            Console.WriteLine();
 
+            PrintExits();
             PrintItems();
             PrintContainers();
             PrintNPCs();
+
+        }
+
+        private void PrintExits()
+        {
+            foreach (var exit in Exits)
+            {
+                string direction = exit.Key;
+                Room connectedRoom = exit.Value;
+
+
+                Console.WriteLine($"By going: {direction}, You will enter: {connectedRoom.ShortDescription}");
+            }
+            Console.WriteLine();
         }
 
         private void PrintItems()
@@ -78,6 +94,7 @@
                 Console.WriteLine("You can see multiple containers:");
                 Console.WriteLine(string.Join(", ", Containers.Select(container => container.Name)));
             }
+
         }
 
         private void PrintNPCs()
