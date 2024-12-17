@@ -189,7 +189,7 @@
                         break;
 
                     case "back":
-                        if (previousRoom == null)
+                        if (previousRoom == null || (previousRoom.ShortDescription == "SEA" && currentRoom.ShortDescription == "WHIRLPOOL"))
                             Console.WriteLine("You can't go back from here!");
                         else
                             currentRoom = previousRoom;
