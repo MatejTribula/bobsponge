@@ -52,6 +52,7 @@
             PrintItems();
             PrintContainers();
             PrintNPCs();
+            PrintMinigame();
 
         }
 
@@ -74,11 +75,11 @@
 
             if (Items.Count == 1)
             {
-                Console.WriteLine($"You can see an item: {Items[0].Name}");
+                Console.WriteLine($"There is an item: {Items[0].Name}");
             }
             else
             {
-                Console.WriteLine("You can see some items:");
+                Console.WriteLine("There are some items:");
                 Console.WriteLine(string.Join(", ", Items.Select(item => item.Name)));
             }
         }
@@ -93,7 +94,7 @@
             }
             else
             {
-                Console.WriteLine("You can see multiple containers:");
+                Console.WriteLine("There are multiple containers:");
                 Console.WriteLine(string.Join(", ", Containers.Select(container => container.Name)));
             }
 
@@ -109,9 +110,16 @@
             }
             else
             {
-                Console.WriteLine("You can see multiple characters:");
+                Console.WriteLine("There are multiple characters:");
                 Console.WriteLine(string.Join(", ", NPCs.Values.Select(npc => npc.Name)));
             }
+        }
+
+        private void PrintMinigame()
+        {
+            if (minigame == null) return;
+            Console.WriteLine("There is a minigame located in this room");
+            Console.WriteLine();
         }
     }
 }
