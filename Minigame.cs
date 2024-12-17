@@ -7,7 +7,6 @@ public class Minigame
 
     public Minigame() { }
 
-    public void Play() { }
-
-
+    // if method is marked as virtual children of this class may override it 
+    public virtual void Play() { }
 }

@@ -48,6 +48,7 @@
             // JUNK CREATER
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
+            junkCreater.minigame = new MinigameTrashIsland();
 
 
             // SEA OF SLUDGE
@@ -209,10 +210,6 @@
                         continuePlaying = false;
                         break;
 
-                    case "start":
-                        // not sure how to make this thing work yet but i will get into it
-                        break;
-
                     case "inventory":
                         inventory.ShowItems();
                         break;
@@ -313,6 +310,20 @@
 
                         Console.WriteLine($"You stopped talking to {currentNPC.Name}");
                         currentNPC = null;
+                        break;
+
+                    case "start":
+                        if (currentRoom.minigame == null)
+                        {
+                            Console.WriteLine("You cannot start any activity here!");
+                            break;
+                        }
+                        if (currentRoom.minigame.IsComplete == true)
+                        {
+                            Console.WriteLine("You have already successfully completed this activity!");
+                            break;
+                        }
+                        currentRoom.minigame.Play();
                         break;
 
 
