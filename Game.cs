@@ -8,6 +8,8 @@
         private Container? currentContainer;
         private NPC? currentNPC;
 
+        public List<Minigame> minigames = new();
+
         public Game()
         {
             CreateRooms();
@@ -15,8 +17,6 @@
 
         private void CreateRooms()
         {
-            // DONE rewrite everything so player can see where they can go
-            // DONE add Kader level
             Room? beach = new("BEACH", "You are on a small sandy beach, the sky is blue, the water is clear, you feel a cool breeze from the sea hitting your face. You can see the SEA in front of you facing NORTH");
 
 
@@ -48,7 +48,9 @@
             // JUNK CREATER
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
-            junkCreater.minigame = new MinigameTrashIsland();
+            Minigame minigameTrashIsland = new MinigameTrashIsland();
+            junkCreater.minigame = minigameTrashIsland;
+            minigames.Add(minigameTrashIsland);
 
 
             // SEA OF SLUDGE
@@ -326,6 +328,14 @@
                         currentRoom.minigame.Play();
                         break;
 
+                    case "goal":
+                        PrintGoal();
+                        break;
+
+                    case "progress":
+                        PrintProgress();
+                        break;
+
 
                     default:
                         Console.WriteLine("I don't know what command.");
@@ -373,6 +383,8 @@
             Console.WriteLine("Navigate by typing 'north', 'south', 'east', or 'west'.");
             Console.WriteLine("Type 'look' for more details.");
             Console.WriteLine("Type 'back' to go to the previous room.");
+            Console.WriteLine("Type 'goal' to see the goal.");
+            Console.WriteLine("Type 'progress' to see your current progress.");
             Console.WriteLine("Type 'help' to print this message again.");
             Console.WriteLine("Type 'inventory' to print all the items in your inventory.");
             Console.WriteLine("Type 'take' + name of the item you want to add to your inventory.");
@@ -383,6 +395,35 @@
             // this one is not done
             Console.WriteLine("Type 'start' to start a minigame");
             Console.WriteLine("Type 'quit' to exit the game.");
+        }
+
+        private void PrintGoal()
+        {
+            Console.WriteLine("The goal is to explore the ocean and learn more about it and its creatures. To win you need to complete all the minigames available");
+        }
+
+        private void PrintProgress()
+        {
+            Console.WriteLine($"Your current progress is {CalcProgress()}%");
+        }
+
+        private double CalcProgress()
+        {
+            var minigameCount = minigames.Count;
+            var completed = 0;
+
+
+            foreach (var minigame in minigames)
+            {
+                if (minigame.IsComplete)
+                {
+                    completed++;
+                }
+            }
+
+            var completitionPercentage = (double)(100 * completed) / minigameCount;
+
+            return completitionPercentage;
         }
 
 

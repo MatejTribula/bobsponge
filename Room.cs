@@ -10,7 +10,7 @@
         public Dictionary<string, NPC> NPCs = new();
         public Dictionary<string, Room> Exits { get; private set; } = new();
 
-        public Minigame minigame;
+        public Minigame minigame { get; set; }
 
 
 
