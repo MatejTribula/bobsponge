@@ -9,4 +9,5 @@ public class Minigame
 
     // if method is marked as virtual children of this class may override it 
     public virtual void Play() { }
+    public virtual void Stop() { }
 }

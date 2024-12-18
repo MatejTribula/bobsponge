@@ -3,6 +3,7 @@ namespace WorldOfZuul;
 public class MinigameTrashIsland : Minigame
 {
     private bool continuePlaying = true;
+    private bool isStopped = false;
 
     private int x = 3;
     private int y = 0;
@@ -105,6 +106,7 @@ public class MinigameTrashIsland : Minigame
 
             Console.WriteLine(score);
             Console.WriteLine("Use ARROW keys to move.");
+            Console.WriteLine("Any other input will stop the game.");
 
             ConsoleKey key = Console.ReadKey(true).Key;
             int newX = x, newY = y;
@@ -112,12 +114,15 @@ public class MinigameTrashIsland : Minigame
             // min -> is actually max number of rows/columns
             // max -> is the last index thus 0
             if (key == ConsoleKey.UpArrow) newX = Math.Max(0, x - 1);
-            if (key == ConsoleKey.DownArrow) newX = Math.Min(7, x + 1);
-            if (key == ConsoleKey.LeftArrow) newY = Math.Max(0, y - 1);
-            if (key == ConsoleKey.RightArrow) newY = Math.Min(7, y + 1);
+            else if (key == ConsoleKey.DownArrow) newX = Math.Min(7, x + 1);
+            else if (key == ConsoleKey.LeftArrow) newY = Math.Max(0, y - 1);
+            else if (key == ConsoleKey.RightArrow) newY = Math.Min(7, y + 1);
+            else Stop();
+
+            // IF INPUT IS DIFFERENT STOP EXECUTION OF MINIGAME ->
+
 
             // interaction logic will be here:
-
             if (itemScores.ContainsKey(map[newX, newY]))
             {
                 score += itemScores[map[newX, newY]];
@@ -141,15 +146,25 @@ public class MinigameTrashIsland : Minigame
         }
 
         Console.Clear();
+        if (isStopped)
+        {
+            Console.WriteLine("You have stopped completing the minigmae");
+            return;
+        }
         if (score >= winningScore)
         {
             IsComplete = true;
-            Console.WriteLine("Congratulations! you have successfully completed the activity!");
+            Console.WriteLine("Congratulations! you have successfully completed the minigame!");
+            return;
         }
-        else
-        {
-            Console.WriteLine("You have failed to complete the goal.");
-        }
+        else Console.WriteLine("You have failed to complete the goal.");
+
+    }
+
+    private void Stop()
+    {
+        continuePlaying = false;
+        isStopped = true;
     }
 }
 
