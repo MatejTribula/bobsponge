@@ -115,6 +115,9 @@
 
             // matej's level
             trashIsland.SetExits(junkCreater, seaSludge, glassCanyon, whirlpool);
+            junkCreater.SetExit("south", trashIsland);
+            seaSludge.SetExit("west", trashIsland);
+            glassCanyon.SetExit("north", trashIsland);
 
 
 
