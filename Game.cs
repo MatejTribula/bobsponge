@@ -8,7 +8,9 @@
         private Container? currentContainer;
         private NPC? currentNPC;
 
-        public List<Minigame> minigames = new();
+        private List<Minigame> minigames = new();
+        private bool isVictorious = false;
+
 
         public Game()
         {
@@ -105,6 +107,7 @@
             beach.SetExit("north", seaLevel);
             seaLevel.SetExit("east", whirlpool);
             seaLevel.SetExit("west", coastline);
+            coastline.SetExit("east", seaLevel);
 
 
 
@@ -137,8 +140,22 @@
             PrintWelcome();
 
             bool continuePlaying = true;
+            isVictorious = false;
+
             while (continuePlaying)
             {
+                // checks if game is completed
+                if (CalcProgress() == 100)
+                {
+                    // continuePlaying = false;
+                    // isVictorious = true;
+                    // continue;
+
+                    isVictorious = true;
+                    Console.WriteLine("You have completed all activities already! You can still look around!");
+
+                }
+
                 Console.WriteLine(currentRoom?.ShortDescription);
                 Console.Write("> ");
 
@@ -357,7 +374,7 @@
 
             }
 
-
+            PrintEnding();
             Console.WriteLine("Thank you for playing Save the Ocean with Bobsponge!");
         }
 
@@ -412,6 +429,17 @@
             Console.WriteLine("The goal is to explore the ocean and learn more about it and its creatures. To win you need to complete all the minigames available");
         }
 
+        private void PrintEnding()
+        {
+            if (isVictorious)
+            {
+                Console.WriteLine("You have made an ocean safe place!");
+                Console.WriteLine("Well... Actually not, this is just a minigame, nothing else");
+                Console.WriteLine("You need to start taking action in real life!");
+                Console.WriteLine();
+            }
+        }
+
         private void PrintProgress()
         {
             Console.WriteLine($"Your current progress is {CalcProgress()}%");
@@ -435,6 +463,8 @@
 
             return completitionPercentage;
         }
+
+
 
 
 
