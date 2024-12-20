@@ -36,7 +36,7 @@
             Room? coastline = new("COASTLINE", "");
 
             Minigame minigameCoastline = new Coastline();
-            coastline.minigame = minigameCoastline;
+            coastline.Minigame = minigameCoastline;
             minigames.Add(minigameCoastline);
 
             Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore, however you can vaguely see a SHIPWRECK to the NORTH, TRASH ISLAND to the EAST, CORAL REEFS to the SOUTH and a NUCLEAR ACCIDENT to the WEST");
@@ -55,7 +55,7 @@
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
             Minigame minigameTrashIsland = new MinigameTrashIsland();
-            junkCreater.minigame = minigameTrashIsland;
+            junkCreater.Minigame = minigameTrashIsland;
             minigames.Add(minigameTrashIsland);
 
 
@@ -325,17 +325,17 @@
                         break;
 
                     case "start":
-                        if (currentRoom.minigame == null)
+                        if (currentRoom.Minigame == null)
                         {
                             Console.WriteLine("You cannot start any activity here!");
                             break;
                         }
-                        if (currentRoom.minigame.IsComplete == true)
+                        if (currentRoom.Minigame.IsComplete == true)
                         {
                             Console.WriteLine("You have already successfully completed this activity!");
                             break;
                         }
-                        currentRoom.minigame.Play();
+                        currentRoom.Minigame.Play();
                         break;
 
                     case "goal":
