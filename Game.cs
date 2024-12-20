@@ -33,6 +33,12 @@
 
             Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
 
+            Room? coastline = new("COASTLINE", "");
+
+            Minigame minigameCoastline = new Coastline();
+            coastline.minigame = minigameCoastline;
+            minigames.Add(minigameCoastline);
+
             Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore, however you can vaguely see a SHIPWRECK to the NORTH, TRASH ISLAND to the EAST, CORAL REEFS to the SOUTH and a NUCLEAR ACCIDENT to the WEST");
 
             Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over. You can go back to the WHIRLPOOL by going SOUTH");
@@ -98,6 +104,7 @@
 
             beach.SetExit("north", seaLevel);
             seaLevel.SetExit("east", whirlpool);
+            seaLevel.SetExit("west", coastline);
 
 
 
