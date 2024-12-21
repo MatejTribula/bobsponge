@@ -19,9 +19,17 @@ public class ItemStorage
         {
             Console.WriteLine(this.Name + " is empty!");
         }
-        else
+        else if (numberOfItems > 1)
         {
             Console.WriteLine("There are " + numberOfItems + " items in the " + this.Name + ": ");
+            foreach (Item item in Items)
+            {
+                Console.WriteLine(item.Name);
+            }
+        }
+        else 
+        {
+            Console.WriteLine("There is " + numberOfItems + " item in the " + this.Name + ": ");
             foreach (Item item in Items)
             {
                 Console.WriteLine(item.Name);

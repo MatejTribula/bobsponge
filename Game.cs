@@ -2,6 +2,7 @@
 {
     public class Game
     {
+
         private Room? currentRoom;
         private Room? previousRoom;
 
@@ -69,22 +70,23 @@
             Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over. You can go back to the WHIRLPOOL by going SOUTH");
 
 
-            // matej's level
+            #region matejLVL
 
-            // CENTER
+            #region Center
             Room? trashIsland = new("TRASH ISLAND, CENTER", "Somehow you managed to enter the center of the trash island. There is trash for hundreds and hundreds\r\nof kilometers in every direction, there is no clear water to be seen. Just seemingly infinite garbage in every direction.");
 
             ItemManager.AddItem("robotic-arm", "a robotic arm of the robot located somewhere in TRASH ISLAND", false, false, trashIsland.Items);
+            #endregion
 
-            // JUNK CREATER
+            #region JunkCreater
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
             Minigame minigameTrashIsland = new MinigameTrashIsland();
             junkCreater.Minigame = minigameTrashIsland;
             minigames.Add(minigameTrashIsland);
+            #endregion
 
-
-            // SEA OF SLUDGE
+            #region SeaOfSludge     
             Room? seaSludge = new("TRASH ISLAND, SEA OF SLUDGE", "The Sea of Sludge is a murky stretch of water, thick with oil, plastic, and chemicals. Trash floats everywhere, and the air smells rotten. The waves barely move, carrying more waste with each pass. It’s a grim reminder of how pollution is poisoning the sea");
 
             Container sludgeBarrel = new Container("barrel");
@@ -100,8 +102,9 @@
             seal.AddQA("How can I help you?", "I do not think that you will be able to help me anymore. It is too late... The only wish I have now is to prevent this from happening to any other creature ever again!");
 
             seaSludge.SetNPC("seal", seal);
+            #endregion 
 
-            // GLASS CANYON
+            #region GlassCanyon
             Room? glassCanyon = new("TRASH ISLAND, GLASS CANYON", "Amid all the trash, a canyon made of glass bottles, jars, mobile screens and other similiar objects was created. At first glance it looks marvelous, reflecting light in a way that makes it appear shiny and almost magical. However, its existence raises some unsettling questions");
 
             NPC robot = new("robot", "Beep scanning beep");
@@ -119,7 +122,8 @@
             robot.AddQA("Have you met anyone here?", "No I haven't, however I have seen some creature entering SEA OF SLUDGE that is to the EAST of the CENTER of the TRASH ISLAND.");
 
             glassCanyon.SetNPC("robot", robot);
-
+            #endregion
+            #endregion
 
 
             Room? coralReefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired. You can go back to the WHIRLPOOL by going NORTH");
@@ -130,6 +134,52 @@
 
             Room? nuclear_accident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
 
+        #region EngineRoom
+            Room? engine_room = new("ENGINE ROOM", "The underwater engine room is a gloomy sight. Rusty machines are covered in seaweed and\r\nbarnacles, and oil shimmers in the water. You see some type od ghost figure wandering around the machinery. Tools and debris litter the sandy floor, and the wreck creaks as water\r\nflows through. ");
+            NPC ghost = new NPC("ghost", "Oh hello, I didn't expect visitors today.");
+            ghost.AddQA("Who are you?", "I am Captain Bartholomew Tidewalker, master of this vessel, once the proud 'Wave Reaper.' She sailed these seas, but now she lies here, broken as am I.");
+            ghost.AddQA("What happened to your ship?", "Greed happened. We sought the sea's bounty but took more than we should. Nets spread wide, catching not just fish but the very soul of the ocean.\r\nStorms followed, as if the sea herself sought vengeance. The 'Wave Reaper' met her end here.");
+            ghost.AddQA("Why were you fishing illegally?", "We wanted riches, and the sea gave them, but we ignored the cost. Trawling, bycatch, and empty waters—our legacy. We didn't heed the warnings, thinking the ocean's wealth was infinite. It was not.");
+            ghost.AddQA("What is bycatch?",  "When our nets swept the sea, they caught more than the fish we sought. Dolphins, turtles, even coral—a wasteful harvest.\r\nLives lost, ecosystems shattered. Bycatch is the cost of our recklessness.");
+            ghost.AddQA("Did you ever try to change your ways?", "[Pauses] By the time I realized the harm, it was too late. I was trapped in contracts, debts, and lies. Now, my penance is to drift here, warning others.");
+            ghost.AddQA("What can I do to help the ocean?", "Learn from my mistakes. Advocate for sustainable fishing, respect marine laws, and protect the ocean's fragile balance. The sea needs champions, not plunderers.");
+            engine_room.SetNPC("ghost", ghost);
+            Container locker = new Container("locker");
+            ItemManager.AddItem("fishing rod with illegal bait", "A fishing rod with a line and a type of bait that is prohibited by international fishing laws, like certain lures meant for endangered species.A piece of evidence that ties the shipwreck to unlawful practices ", true, false, locker.Items );
+            ItemManager.AddItem("shiny piece", "piece of an ancient artifact", false, false, locker.Items);
+            engine_room.SetContainer(locker);
+
+            #endregion
+
+        #region CapsQuarter
+            Room? captains_quarter = new("CAPTAIN'S QUARTER", "The captain's quarters are dim and cluttered, with broken furniture and a shattered compass\r\nlying on the floor. Papers and maps float aimlessly, showing signs of age and water damage. A logbook on the desk,\r\nsurprisingly intact, reveals records of illegal fishing activities. In the corner, a chest is blocked by a ghost net tied in three\r\ntight knots, making it hard to reach.  ");
+            Container capsChest = new Container("captains-chest");
+            captains_quarter.SetContainer(capsChest);
+            ItemManager.AddItem("stone piece", "piece of an ancient artifact ", false, false, capsChest.Items);
+            ItemManager.AddItem("binoculars", "these were once used by the captain of the ship to see if there is any incoming danger", true, false, capsChest.Items);
+            Minigame minigameCapsQuarter = new KnotUntanglingMinigame();
+            captains_quarter.minigame = minigameCapsQuarter;
+            minigames.Add(minigameCapsQuarter);
+        #endregion
+        
+        #region NavigationRoom
+            Room? navigation_room = new("NAVIGATION ROOM", "The navigation room is dimly lit by a soft glow from glowing algae on the walls. An octopus\r\nwith changing colors sits on the broken ship’s wheel, its arms slowly moving over the rusty controls.\r\nAt the back ofthe room, a barrel is stuck under a ghost net. The octopus glances at you with curious, sharp eyes,\r\nas if it knows the barrel is important.");
+            Container barrel = new Container("barrel");
+            navigation_room.SetContainer(barrel);
+            ItemManager.AddItem("glass piece", "piece of an ancient artifact", false, false, barrel.Items);
+            ItemManager.AddItem("antique coins", "currency from different ports visited by the ship", true, false, barrel.Items);
+            NPC octopus = new NPC("octopus", "Hello there, traveller");
+            octopus.AddQA("Who are you?", "I’m Ollie the Octopus, the self-proclaimed guardian of this sunken ship. I’ve been here ever since it crashed,\r\nkeeping an eye on all the odd things happening under the sea.");
+            octopus.AddQA("What happened to this ship?", "This ship was part of a notorious illegal fishing operation. It carried massive nets, some of which were lost and became ghost nets.\r\nThey caused chaos for marine life until the ship sank in a storm. A small victory for the ocean, but its legacy still harms us.");
+            octopus.AddQA("Why are you in the navigation room?", "Ah, the navigation room has the best view of the ship's past. I’ve read all the charts and journals left behind.\r\nThe humans aboard were clever, but greedy. They’d rather profit than protect the ocean. Someone needs to remember their mistakes.");
+            octopus.AddQA("Have you seen ghost nets?", "Yes, unfortunately. Ghost nets are silent killers. I’ve watched turtles, dolphins, and even my octopus cousins get tangled in them. It’s heartbreaking. That’s why you need to be careful about your choices up there on the surface!");
+            octopus.AddQA("Why are there so many fish here?", "Shipwrecks often become artificial reefs, attracting marine life. Ironically, this place, once a harbinger of destruction, now gives shelter to the very creatures it harmed.");
+            octopus.AddQA("Can you teach me something about the ocean, before i continue exploring the ship?", "Of course! Did you know octopuses have blue blood? Or that the ocean produces more oxygen than all the forests combined? It’s the heart of life on Earth—literally and figuratively.");
+            navigation_room.SetNPC("octopus", octopus);
+            Minigame navigationMinigame = new NetCuttingMinigame();
+            navigation_room.minigame = navigationMinigame;
+            minigames.Add(navigationMinigame);
+            #endregion
 
             beach.SetExit("north", seaLevel);
 
@@ -143,14 +193,9 @@
 
             whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclear_accident);
 
-            shipwreck.SetExit("south", whirlpool);
+            shipwreck.SetExits(navigation_room, captains_quarter, whirlpool, engine_room);
 
-
-            // matej's level
             trashIsland.SetExits(junkCreater, seaSludge, glassCanyon, whirlpool);
-            junkCreater.SetExit("south", trashIsland);
-            seaSludge.SetExit("west", trashIsland);
-            glassCanyon.SetExit("north", trashIsland);
 
 
 
@@ -206,6 +251,22 @@
                     continue;
                 }
 
+                // might make more sense a a method
+                if (command.Name != "loot" && currentContainer != null)
+                {
+
+                    Console.WriteLine(command.Name);
+                    Console.WriteLine("You have closed the " + currentContainer.Name);
+
+                    currentContainer = null;
+                    continue;
+                }
+
+                
+
+
+
+
                 // if current npc exists 
                 // if input <= current npc count
                 // show the answer to the question with input index
@@ -241,6 +302,8 @@
 
                     continue;
                 }
+                
+                
 
                 switch (command.Name)
                 {
@@ -285,19 +348,32 @@
 
                     // opens selected container inside the room
                     case "open":
+                        
+                        
                         if (command.SecondWord == null)
                         {
                             Console.WriteLine("You did not specify what to open!");
                             break;
                         }
+                          
 
                         Container openedContainer = currentRoom.Containers.Find(container => container.Name.Equals(command.SecondWord, StringComparison.OrdinalIgnoreCase));
-
+                        
                         if (openedContainer == null)
                         {
                             Console.WriteLine("Container not found!");
                             break;
                         }
+                        if (command.SecondWord.Equals("captains-chest", StringComparison.OrdinalIgnoreCase) &&  currentRoom.minigame.IsComplete == false)
+                            {
+                               Console.WriteLine("First you need to entangle the net");
+                               break; // Exit the current case and prevent further execution
+                            }
+                        if (command.SecondWord.Equals("barrel", StringComparison.OrdinalIgnoreCase) && currentRoom.minigame.IsComplete == false)
+                            {
+                               Console.WriteLine("First you need to cut the net");
+                               break; // Exit the current case and prevent further execution
+                            }    
 
                         openedContainer.ShowItems();
                         if (openedContainer.Items.Count > 0)
@@ -429,7 +505,30 @@
             Console.Clear();
             Console.WriteLine("Welcome to Saving The Ocean with Bobsponge!");
             Console.WriteLine("A game created by the finest video game developers from around the world.");
-            Console.WriteLine("I'm Bobsponge! The ocean desperately needs your help, and I'm here to guide you.");
+            string asciiArt = @"
+    .--..--..--..--..--..--.     +-----------------------+
+    .' \  (`._   (_)     _   \   |  Hey there!           |
+  .'    |  '._)         (_)  |   |  Are you ready to     |
+  \ _.')\      .----..---.   /   |  help me save the     |
+  |(_.'  |    /    .-\-.  \  |   |  ocean?               |
+  \     0|    |   ( O| O) | o|   +-----------------------+
+   |  _  |  .--.____.'._.-.  |
+   \ (_) | o         -` .-`  |
+    |    \   |`-._ _ _ _ _\ /
+    \    |   |  `. |_||_|   |
+    | o  |    \_      \     |     -.   .-.
+    |.-.  \     `--..-'   O |     `.`-' .'
+  _.'  .' |     `-.-'      /-.__   ' .-'
+.' `-.` '.|='=.='=.='=.='=|._/_ `-'.'
+`-._  `.  |________/\_____|    `-.'
+   .'   ).| '=' '='\/ '=' |
+   `._.`  '---------------'
+           //___\   //___\
+             ||       ||
+             ||_.-.   ||_.-.
+            (_.--__) (_.--__)
+";
+        Console.WriteLine(asciiArt);
 
             PrintHelp();
             Console.WriteLine();
