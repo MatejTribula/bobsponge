@@ -10,7 +10,7 @@
         public Dictionary<string, NPC> NPCs = new();
         public Dictionary<string, Room> Exits { get; private set; } = new();
 
-        public Minigame minigame { get; set; }
+        public Minigame Minigame { get; set; }
 
 
 
@@ -117,7 +117,7 @@
 
         private void PrintMinigame()
         {
-            if (minigame == null) return;
+            if (Minigame == null) return;
             Console.WriteLine("There is a minigame located in this room");
             Console.WriteLine();
         }

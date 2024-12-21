@@ -70,6 +70,8 @@ public class MinigameTrashIsland : Minigame
     public override void Play()
     {
         continuePlaying = true;
+        turns = 20;
+        score = 0;
 
         while (continuePlaying)
         {
@@ -81,15 +83,11 @@ public class MinigameTrashIsland : Minigame
 
 
             Console.WriteLine("Icon guide:");
-            Console.WriteLine($"{playerIcon} - Player");
-            Console.WriteLine($"{backgroundIcon} - Empty space");
-            Console.WriteLine($"{obstacleIcon} - Obstacle");
-            Console.WriteLine("Other icons- Collectible Items");
+            Console.WriteLine($"{playerIcon} - Player, {backgroundIcon} - Empty space, {obstacleIcon} - Obstacle, Other icons - Collectible Items");
             Console.WriteLine();
 
-            Console.WriteLine($"You only have {turns} turns left!");
-            Console.WriteLine($"To win you will need to have score of at least: {winningScore}!");
-            Console.WriteLine($"Your score is currently: {score}");
+            Console.WriteLine("Objective:");
+            Console.WriteLine($"Collect harmful items to earn points. To win you will need to have score of at least: {winningScore}!");
 
             Console.WriteLine();
 
@@ -103,10 +101,13 @@ public class MinigameTrashIsland : Minigame
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
 
-            Console.WriteLine(score);
-            Console.WriteLine("Use ARROW keys to move.");
-            Console.WriteLine("Any other input will stop the game.");
+            Console.WriteLine($"TURNS: {turns}  SCORE: {score}");
+            Console.WriteLine();
+
+            Console.WriteLine("Input");
+            Console.WriteLine("Use ARROW keys to move. Any other input will stop the game.");
 
             ConsoleKey key = Console.ReadKey(true).Key;
             int newX = x, newY = y;

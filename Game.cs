@@ -8,7 +8,9 @@
         private Container? currentContainer;
         private NPC? currentNPC;
 
-        public List<Minigame> minigames = new();
+        private List<Minigame> minigames = new();
+        private bool isVictorious = false;
+
 
         public Game()
         {
@@ -33,6 +35,12 @@
 
             Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
 
+            Room? coastline = new("COASTLINE", "");
+
+            Minigame minigameCoastline = new Coastline();
+            coastline.Minigame = minigameCoastline;
+            minigames.Add(minigameCoastline);
+
             Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore, however you can vaguely see a SHIPWRECK to the NORTH, TRASH ISLAND to the EAST, CORAL REEFS to the SOUTH and a NUCLEAR ACCIDENT to the WEST");
 
             Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over. You can go back to the WHIRLPOOL by going SOUTH");
@@ -49,7 +57,7 @@
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
             Minigame minigameTrashIsland = new MinigameTrashIsland();
-            junkCreater.minigame = minigameTrashIsland;
+            junkCreater.Minigame = minigameTrashIsland;
             minigames.Add(minigameTrashIsland);
 
 
@@ -98,6 +106,8 @@
 
             beach.SetExit("north", seaLevel);
             seaLevel.SetExit("east", whirlpool);
+            seaLevel.SetExit("west", coastline);
+            coastline.SetExit("east", seaLevel);
 
 
 
@@ -108,6 +118,9 @@
 
             // matej's level
             trashIsland.SetExits(junkCreater, seaSludge, glassCanyon, whirlpool);
+            junkCreater.SetExit("south", trashIsland);
+            seaSludge.SetExit("west", trashIsland);
+            glassCanyon.SetExit("north", trashIsland);
 
 
 
@@ -127,8 +140,22 @@
             PrintWelcome();
 
             bool continuePlaying = true;
+            isVictorious = false;
+
             while (continuePlaying)
             {
+                // checks if game is completed
+                if (CalcProgress() == 100)
+                {
+                    // continuePlaying = false;
+                    // isVictorious = true;
+                    // continue;
+
+                    isVictorious = true;
+                    Console.WriteLine("You have completed all activities already! You can still look around!");
+
+                }
+
                 Console.WriteLine(currentRoom?.ShortDescription);
                 Console.Write("> ");
 
@@ -315,17 +342,17 @@
                         break;
 
                     case "start":
-                        if (currentRoom.minigame == null)
+                        if (currentRoom.Minigame == null)
                         {
                             Console.WriteLine("You cannot start any activity here!");
                             break;
                         }
-                        if (currentRoom.minigame.IsComplete == true)
+                        if (currentRoom.Minigame.IsComplete == true)
                         {
                             Console.WriteLine("You have already successfully completed this activity!");
                             break;
                         }
-                        currentRoom.minigame.Play();
+                        currentRoom.Minigame.Play();
                         break;
 
                     case "goal":
@@ -347,7 +374,7 @@
 
             }
 
-
+            PrintEnding();
             Console.WriteLine("Thank you for playing Save the Ocean with Bobsponge!");
         }
 
@@ -402,6 +429,17 @@
             Console.WriteLine("The goal is to explore the ocean and learn more about it and its creatures. To win you need to complete all the minigames available");
         }
 
+        private void PrintEnding()
+        {
+            if (isVictorious)
+            {
+                Console.WriteLine("You have made an ocean safe place!");
+                Console.WriteLine("Well... Actually not, this is just a minigame, nothing else");
+                Console.WriteLine("You need to start taking action in real life!");
+                Console.WriteLine();
+            }
+        }
+
         private void PrintProgress()
         {
             Console.WriteLine($"Your current progress is {CalcProgress()}%");
@@ -425,6 +463,8 @@
 
             return completitionPercentage;
         }
+
+
 
 
 
