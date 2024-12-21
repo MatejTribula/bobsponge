@@ -99,7 +99,11 @@
 
 
 
-            Room? coral_reefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired. You can go back to the WHIRLPOOL by going NORTH");
+            Room? coralReefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired. You can go back to the WHIRLPOOL by going NORTH");
+
+            Minigame minigameCoralReefs = new CoralReef();
+            coralReefs.Minigame = minigameCoralReefs;
+            minigames.Add(minigameCoralReefs);
 
             Room? nuclear_accident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
 
@@ -111,7 +115,7 @@
 
 
 
-            whirlpool.SetExits(shipwreck, trashIsland, coral_reefs, nuclear_accident);
+            whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclear_accident);
 
             shipwreck.SetExit("south", whirlpool);
 
@@ -124,7 +128,7 @@
 
 
 
-            coral_reefs.SetExit("north", whirlpool);
+            coralReefs.SetExit("north", whirlpool);
 
             nuclear_accident.SetExit("east", whirlpool);
 
@@ -433,8 +437,8 @@
         {
             if (isVictorious)
             {
-                Console.WriteLine("You have made an ocean safe place!");
-                Console.WriteLine("Well... Actually not, this is just a minigame, nothing else");
+                Console.WriteLine("You have made an ocean a safe place!");
+                Console.WriteLine("Well... Actually not, this is just a game, nothing else");
                 Console.WriteLine("You need to start taking action in real life!");
                 Console.WriteLine();
             }

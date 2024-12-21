@@ -5,17 +5,16 @@ namespace WorldOfZuul;
 //add a delay between correct/incorrect and the next question
 //add a typing animation
 
-public class CoralReef{
+public class CoralReef : Minigame
+{
 
-    public static void TypeSlow(string ToType, int TypeDelay){
-        foreach (var character in ToType){
-            Console.Write(character);
-            Thread.Sleep(TypeDelay);
-        }
-        Console.WriteLine();
-    }
 
-    public void MinigameCoralReef(){
+    public CoralReef() { }
+
+    public override void Play()
+    {
+
+        Console.WriteLine("KOKOT");
         var triviaQuestions = new List<(string question, string answer)>{
             ("Where are most coral reefs located globally? \n a: On the equator \n b: In deep oceans \n c: Southeast Asia \n d: Between 30° north and south of the equator ", "d"),
             ("Which temperature is ideal for coral growth? \n a: 20°C \n b: Over 30°C \n c: 25°C \n d: 35°C ", "c"),
@@ -31,31 +30,48 @@ public class CoralReef{
         int CoralPoints = 0;
         float TestResult;
 
-        foreach(var level in triviaQuestions){
+        foreach (var level in triviaQuestions)
+        {
             TypeSlow(level.question, 10);
             Console.Write("> ");
 
             UserAnswer = Console.ReadLine();
 
-            if(UserAnswer == level.answer){
+            if (UserAnswer == level.answer)
+            {
                 CoralPoints++;
                 TypeSlow("Correct! Good job.", 15);
                 Console.WriteLine();
             }
-            else{
+            else
+            {
                 TypeSlow("Oops, wrong answer.", 15);
                 Console.WriteLine();
             }
         }
 
-        if(CoralPoints == triviaQuestions.Count){
+        if (CoralPoints == triviaQuestions.Count)
+        {
             TypeSlow("All correct! You win!!", 15);
+            IsComplete = true;
             Console.WriteLine();
         }
-        else{
+        else
+        {
             TestResult = (float)CoralPoints / (float)triviaQuestions.Count * 100;
             TypeSlow($"You did not answer everything correctly ({TestResult}%) try again.", 15);
             Console.WriteLine();
         }
+    }
+
+
+    public static void TypeSlow(string ToType, int TypeDelay)
+    {
+        foreach (var character in ToType)
+        {
+            Console.Write(character);
+            Thread.Sleep(TypeDelay);
+        }
+        Console.WriteLine();
     }
 }
