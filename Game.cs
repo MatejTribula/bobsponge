@@ -43,7 +43,7 @@
             Room? coastline = new("SEA LEVEL, COASTLINE", "Good choice! The beach is covered in plastic and other waste. It's time to clean up and protect marine life.");
 
             Minigame PickTrash = new PickTrash();
-            coastline.minigame = PickTrash;
+            coastline.Minigame = PickTrash;
             minigames.Add(PickTrash);
 
             //turtle lagoon
@@ -51,16 +51,14 @@
             Room? turtleLagoon = new("SEA LEVEL, TURTLE LAGOON", "Welcome! Turtles nest here. They need your help to stay safe and avoid dangerous plastic waste.");
 
             Minigame GuideTurtles = new GuideTurtle();
-            turtleLagoon.minigame = GuideTurtles;
+            turtleLagoon.Minigame = GuideTurtles;
             minigames.Add(GuideTurtles);
 
             Room? seagullHaven = new("SEA LEVEL, SEAGULL HAVEN", "Seagulls are spreading waste around. You must stop them from making things worse.");
 
             Minigame ScareSeagull = new ScareSeagulls();
-            seagullHaven.minigame = ScareSeagull;
+            seagullHaven.Minigame = ScareSeagull;
             minigames.Add(ScareSeagull);
-
-            Room? coastline = new("COASTLINE", "");
 
             Minigame minigameCoastline = new Coastline();
             coastline.Minigame = minigameCoastline;
@@ -134,19 +132,12 @@
 
 
             beach.SetExit("north", seaLevel);
-<<<<<<< HEAD
-            seaLevel.SetExit("east", whirlpool);
-            seaLevel.SetExit("west", coastline);
-            coastline.SetExit("east", seaLevel);
-=======
+
             // kader's exit for levels
             seaLevel.SetExits(coastline, whirlpool, beach, seagullHaven);
-            seagullHaven.SetExit("north",turtleLagoon);
-            seagullHaven.SetExit("east",seaLevel);
-            coastline.SetExit("south",seaLevel);
-    
-            
->>>>>>> kader
+            seagullHaven.SetExit("north", turtleLagoon);
+            seagullHaven.SetExit("east", seaLevel);
+            coastline.SetExit("south", seaLevel);
 
 
 
@@ -162,12 +153,9 @@
             glassCanyon.SetExit("north", trashIsland);
 
 
-<<<<<<< HEAD
 
             coralReefs.SetExit("north", whirlpool);
-=======
-            coral_reefs.SetExit("north", whirlpool);
->>>>>>> kader
+
 
             nuclear_accident.SetExit("east", whirlpool);
 
