@@ -167,4 +167,3 @@ public class MinigameTrashIsland : Minigame
         isStopped = true;
     }
 }
-
