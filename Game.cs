@@ -158,7 +158,7 @@
             ItemManager.AddItem("stone piece", "piece of an ancient artifact ", false, false, capsChest.Items);
             ItemManager.AddItem("binoculars", "these were once used by the captain of the ship to see if there is any incoming danger", true, false, capsChest.Items);
             Minigame minigameCapsQuarter = new KnotUntanglingMinigame();
-            captains_quarter.minigame = minigameCapsQuarter;
+            captains_quarter.Minigame = minigameCapsQuarter;
             minigames.Add(minigameCapsQuarter);
         #endregion
         
@@ -177,7 +177,7 @@
             octopus.AddQA("Can you teach me something about the ocean, before i continue exploring the ship?", "Of course! Did you know octopuses have blue blood? Or that the ocean produces more oxygen than all the forests combined? It’s the heart of life on Earth—literally and figuratively.");
             navigation_room.SetNPC("octopus", octopus);
             Minigame navigationMinigame = new NetCuttingMinigame();
-            navigation_room.minigame = navigationMinigame;
+            navigation_room.Minigame = navigationMinigame;
             minigames.Add(navigationMinigame);
             #endregion
 
@@ -364,12 +364,12 @@
                             Console.WriteLine("Container not found!");
                             break;
                         }
-                        if (command.SecondWord.Equals("captains-chest", StringComparison.OrdinalIgnoreCase) &&  currentRoom.minigame.IsComplete == false)
+                        if (command.SecondWord.Equals("captains-chest", StringComparison.OrdinalIgnoreCase) &&  currentRoom.Minigame.IsComplete == false)
                             {
                                Console.WriteLine("First you need to entangle the net");
                                break; // Exit the current case and prevent further execution
                             }
-                        if (command.SecondWord.Equals("barrel", StringComparison.OrdinalIgnoreCase) && currentRoom.minigame.IsComplete == false)
+                        if (command.SecondWord.Equals("barrel", StringComparison.OrdinalIgnoreCase) && currentRoom.Minigame.IsComplete == false)
                             {
                                Console.WriteLine("First you need to cut the net");
                                break; // Exit the current case and prevent further execution

@@ -21,9 +21,9 @@ public class KnotUntanglingMinigame : Minigame
             return;
         }
 
-        Console.WriteLine("Welcome to the Knot Untangling Minigame!");
+        Console.Clear();
         Console.WriteLine("Marine life often gets trapped in ghost nets, and untangling them is vital for conservation.");
-        Console.WriteLine("Your task is to untangle the knots in the correct order: Top, Middle, Bottom.");
+        Console.WriteLine("Your task is to untangle the knots in the correct order");
         Console.WriteLine("You can only make one mistake. Type 'q' at any time to quit.\n");
 
         while (currentKnot < knots.Length && wrongMoves <= maxWrongMoves && !quit)
