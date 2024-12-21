@@ -123,8 +123,12 @@
 
             beach.SetExit("north", seaLevel);
             // kader's exit for levels
-            seaLevel.SetExits(coastline, turtleLagoon, seagullHaven);
-            seaLevel.SetExit("east", whirlpool);
+            seaLevel.SetExits(coastline, whirlpool, beach, seagullHaven);
+            seagullHaven.SetExit("north",turtleLagoon);
+            seagullHaven.SetExit("east",seaLevel);
+            coastline.SetExit("south",seaLevel);
+    
+            
 
 
 
