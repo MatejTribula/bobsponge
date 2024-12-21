@@ -1,4 +1,5 @@
-﻿namespace WorldOfZuul
+﻿
+namespace WorldOfZuul
 {
     public class Room
     {
@@ -120,6 +121,11 @@
             if (minigame == null) return;
             Console.WriteLine("There is a minigame located in this room");
             Console.WriteLine();
+        }
+
+        internal void SetExits(Room coastline, Room turtleLagoon, Room seagullHaven)
+        {
+            throw new NotImplementedException();
         }
     }
 }

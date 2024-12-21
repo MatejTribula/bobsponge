@@ -30,8 +30,33 @@
             patrick.AddQA("who are you?", "I AM PATRICK THE STAR!!");
             beach.SetNPC("patrick", patrick);
 
+            // kader's level
+            //center
 
-            Room? seaLevel = new("SEA", "You have at the sea level, the gate to the underwater world. Many wonderful creatures are surrounding you however few of them dissapear in the EAST. Care to find out why?");
+
+            Room? seaLevel = new("SEA LEVEL, CENTER", "You are at the sea level. You stand at the edge of the sparkling ocean. Ahead of you lies an adventure that could save the seas. Are you ready?");
+
+            //coastline location
+
+            Room? coastline = new("SEA LEVEL, COASTLINE", "Good choice! The beach is covered in plastic and other waste. It's time to clean up and protect marine life.");
+
+            Minigame PickTrash = new PickTrash();
+            coastline.minigame = PickTrash;
+            minigames.Add(PickTrash);
+
+            //turtle lagoon
+
+            Room? turtleLagoon = new("SEA LEVEL, TURTLE LAGOON", "Welcome! Turtles nest here. They need your help to stay safe and avoid dangerous plastic waste.");
+
+            Minigame GuideTurtles = new GuideTurtle();
+            turtleLagoon.minigame = GuideTurtles;
+            minigames.Add(GuideTurtles);
+
+            Room? seagullHaven = new("SEA LEVEL, SEAGULL HAVEN", "Seagulls are spreading waste around. You must stop them from making things worse.");
+
+            Minigame ScareSeagull = new ScareSeagulls();
+            seagullHaven.minigame = ScareSeagull;
+            minigames.Add(ScareSeagull);
 
             Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore, however you can vaguely see a SHIPWRECK to the NORTH, TRASH ISLAND to the EAST, CORAL REEFS to the SOUTH and a NUCLEAR ACCIDENT to the WEST");
 
@@ -97,6 +122,8 @@
 
 
             beach.SetExit("north", seaLevel);
+            // kader's exit for levels
+            seaLevel.SetExits(coastline, turtleLagoon, seagullHaven);
             seaLevel.SetExit("east", whirlpool);
 
 
@@ -108,7 +135,6 @@
 
             // matej's level
             trashIsland.SetExits(junkCreater, seaSludge, glassCanyon, whirlpool);
-
 
 
             coral_reefs.SetExit("north", whirlpool);
