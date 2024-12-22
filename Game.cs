@@ -423,6 +423,27 @@
             }
         }
 
+        private void MoveItem(string firstWord, string secondWord, List<Item> sourceList, List<Item> targerList)
+        {
+            Item movedItem = ItemManager.FindItem(secondWord, sourceList);
+
+            ItemManager.MoveItem(secondWord, sourceList, targerList);
+
+            if (movedItem == null)
+            {
+                return;
+            }
+
+            if (firstWord == "take")
+            {
+                Console.WriteLine("You took " + secondWord + "!");
+            }
+            else if (firstWord == "drop")
+            {
+                Console.WriteLine("You dropped " + secondWord + "!");
+            }
+
+        }
 
         private static void PrintWelcome()
         {
@@ -493,33 +514,6 @@
             var completitionPercentage = (double)(100 * completed) / minigameCount;
 
             return completitionPercentage;
-        }
-
-
-
-
-
-
-        private void MoveItem(string firstWord, string secondWord, List<Item> sourceList, List<Item> targerList)
-        {
-            Item movedItem = ItemManager.FindItem(secondWord, sourceList);
-
-            ItemManager.MoveItem(secondWord, sourceList, targerList);
-
-            if (movedItem == null)
-            {
-                return;
-            }
-
-            if (firstWord == "take")
-            {
-                Console.WriteLine("You took " + secondWord + "!");
-            }
-            else if (firstWord == "drop")
-            {
-                Console.WriteLine("You dropped " + secondWord + "!");
-            }
-
         }
     }
 
