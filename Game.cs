@@ -79,7 +79,7 @@
             // JUNK CREATER
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
-            Minigame minigameTrashIsland = new MinigameTrashIsland();
+            Minigame minigameTrashIsland = new TrashIsland();
             junkCreater.Minigame = minigameTrashIsland;
             minigames.Add(minigameTrashIsland);
 
@@ -128,7 +128,7 @@
             coralReefs.Minigame = minigameCoralReefs;
             minigames.Add(minigameCoralReefs);
 
-            Room? nuclear_accident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
+            Room? nuclearAccident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
 
 
             beach.SetExit("north", seaLevel);
@@ -141,7 +141,7 @@
 
 
 
-            whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclear_accident);
+            whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclearAccident);
 
             shipwreck.SetExit("south", whirlpool);
 
@@ -157,7 +157,7 @@
             coralReefs.SetExit("north", whirlpool);
 
 
-            nuclear_accident.SetExit("east", whirlpool);
+            nuclearAccident.SetExit("east", whirlpool);
 
             currentRoom = beach;
         }

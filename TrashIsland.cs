@@ -1,6 +1,6 @@
 namespace WorldOfZuul;
 
-public class MinigameTrashIsland : Minigame
+public class TrashIsland : Minigame
 {
     private bool continuePlaying = true;
     private bool isStopped = false;
@@ -37,7 +37,7 @@ public class MinigameTrashIsland : Minigame
 
     private string[,] map;
 
-    public MinigameTrashIsland()
+    public TrashIsland()
     {
         itemScores = new Dictionary<string, int>
             {
