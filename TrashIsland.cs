@@ -12,26 +12,27 @@ public class TrashIsland : Minigame
     private int winningScore = 20;
     private int turns = 20;
 
-    // General icons
-    private string playerIcon = "🕺";
-    private string backgroundIcon = "🟦";
-    private string obstacleIcon = "🗿";
+    private static class Icons
+    {
+        public const string Player = "🕺";
+        public const string Background = "🟦";
+        public const string Obstacle = "🗿";
 
-    // Plus points
-    private string specialBarellIcon = "🛢️ "; // +10
-    private string plasticBagIcon = "🛍️ "; // +5
-    private string fishingHookIcon = "🪝 "; // +4
-    private string plasticCupIcon = "🥤"; // +3
-    private string tireIcon = "🛞 "; // +2
-    private string phoneIcon = "📱"; // +1
+        // Plus points
+        public const string SpecialBarrel = "🛢️ ";
+        public const string PlasticBag = "🛍️ ";
+        public const string FishingHook = "🪝 ";
+        public const string PlasticCup = "🥤";
+        public const string Tire = "🛞 ";
+        public const string Phone = "📱";
 
-    // Minus points
-    private string coralIcon = "🪸 "; // -5
-    private string seaWeedIcon = "🌱"; // -4
-    private string boneIcon = "🦴"; // -3
-    private string shellIcon = "🐚"; // -2
-    private string woodIcon = "🪵 "; // -1
-
+        // Minus points
+        public const string Coral = "🪸 ";
+        public const string SeaWeed = "🌱";
+        public const string Bone = "🦴";
+        public const string Shell = "🐚";
+        public const string Wood = "🪵 ";
+    }
     private Dictionary<string, int> itemScores;
 
 
@@ -41,28 +42,29 @@ public class TrashIsland : Minigame
     {
         itemScores = new Dictionary<string, int>
             {
-                { specialBarellIcon, 10 },
-                { plasticBagIcon, 5 },
-                { fishingHookIcon, 4 },
-                { plasticCupIcon, 3 },
-                { tireIcon, 2 },
-                { phoneIcon, 1 },
-                { coralIcon, -5 },
-                { seaWeedIcon, -4 },
-                { boneIcon, -3 },
-                { shellIcon, -2 },
-                { woodIcon, -1 }
+                { Icons.SpecialBarrel, 10 },
+                { Icons.PlasticBag, 5 },
+                { Icons.FishingHook, 4 },
+                { Icons.PlasticCup, 3 },
+                { Icons.Tire, 2 },
+                { Icons.Phone, 1 },
+                { Icons.Coral, -5 },
+                { Icons.SeaWeed, -4 },
+                { Icons.Bone, -3 },
+                { Icons.Shell, -2 },
+                { Icons.Wood, -1 }
             };
 
+        // Initialize the map with icons
         map = new string[,] {
-                { backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon },
-                { backgroundIcon, shellIcon, backgroundIcon, backgroundIcon, specialBarellIcon, backgroundIcon, backgroundIcon, backgroundIcon },
-                { backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, seaWeedIcon, backgroundIcon, backgroundIcon, backgroundIcon },
-                { playerIcon, backgroundIcon, coralIcon, backgroundIcon, backgroundIcon, plasticCupIcon, backgroundIcon, boneIcon },
-                { backgroundIcon, backgroundIcon, backgroundIcon, phoneIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon },
-                { backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon },
-                { woodIcon, backgroundIcon, backgroundIcon, plasticBagIcon, backgroundIcon, backgroundIcon, tireIcon, backgroundIcon },
-                { backgroundIcon, backgroundIcon, backgroundIcon, backgroundIcon, fishingHookIcon, backgroundIcon, backgroundIcon, backgroundIcon },
+                { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background },
+                { Icons.Background, Icons.Shell, Icons.Background, Icons.Background, Icons.SpecialBarrel, Icons.Background, Icons.Background, Icons.Background },
+                { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.SeaWeed, Icons.Background, Icons.Background, Icons.Background },
+                { Icons.Player, Icons.Background, Icons.Coral, Icons.Background, Icons.Background, Icons.PlasticCup, Icons.Background, Icons.Bone },
+                { Icons.Background, Icons.Background, Icons.Background, Icons.Phone, Icons.Background, Icons.Background, Icons.Background, Icons.Background },
+                { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background },
+                { Icons.Wood, Icons.Background, Icons.Background, Icons.PlasticBag, Icons.Background, Icons.Background, Icons.Tire, Icons.Background },
+                { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.FishingHook, Icons.Background, Icons.Background, Icons.Background }
             };
     }
 
@@ -70,6 +72,9 @@ public class TrashIsland : Minigame
     public override void Play()
     {
         continuePlaying = true;
+
+        GenerateMap();
+
         turns = 20;
         score = 0;
 
@@ -83,7 +88,7 @@ public class TrashIsland : Minigame
 
 
             Console.WriteLine("Icon guide:");
-            Console.WriteLine($"{playerIcon} - Player, {backgroundIcon} - Empty space, {obstacleIcon} - Obstacle, Other icons - Collectible Items");
+            Console.WriteLine($"{Icons.Player} - Player, {Icons.Background} - Empty space, {Icons.Obstacle} - Obstacle, Other icons - Collectible Items");
             Console.WriteLine();
 
             Console.WriteLine("Objective:");
@@ -167,4 +172,24 @@ public class TrashIsland : Minigame
         continuePlaying = false;
         isStopped = true;
     }
+
+    private void GenerateMap()
+    {
+        map = new string[,]
+        {
+        { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background },
+        { Icons.Background, Icons.Shell, Icons.Background, Icons.Background, Icons.SpecialBarrel, Icons.Background, Icons.Background, Icons.Background },
+        { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.SeaWeed, Icons.Background, Icons.Background, Icons.Background },
+        { Icons.Player, Icons.Background, Icons.Coral, Icons.Background, Icons.Background, Icons.PlasticCup, Icons.Background, Icons.Bone },
+        { Icons.Background, Icons.Background, Icons.Background, Icons.Phone, Icons.Background, Icons.Background, Icons.Background, Icons.Background },
+        { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.Background },
+        { Icons.Wood, Icons.Background, Icons.Background, Icons.PlasticBag, Icons.Background, Icons.Background, Icons.Tire, Icons.Background },
+        { Icons.Background, Icons.Background, Icons.Background, Icons.Background, Icons.FishingHook, Icons.Background, Icons.Background, Icons.Background }
+        };
+
+        // Reset player position
+        x = 3;
+        y = 0;
+    }
+
 }
