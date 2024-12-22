@@ -81,7 +81,7 @@
             #region JunkCreater
             Room? junkCreater = new("TRASH ISLAND, CREATER OF JUNK", "You’re in a place piled high with trash: old fishing nets, rusted parts, and broken electronics everywhere");
 
-            Minigame minigameTrashIsland = new MinigameTrashIsland();
+            Minigame minigameTrashIsland = new TrashIsland();
             junkCreater.Minigame = minigameTrashIsland;
             minigames.Add(minigameTrashIsland);
             #endregion
@@ -132,7 +132,7 @@
             coralReefs.Minigame = minigameCoralReefs;
             minigames.Add(minigameCoralReefs);
 
-            Room? nuclear_accident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
+            Room? nuclearAccident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
 
         #region EngineRoom
             Room? engine_room = new("ENGINE ROOM", "The underwater engine room is a gloomy sight. Rusty machines are covered in seaweed and\r\nbarnacles, and oil shimmers in the water. You see some type od ghost figure wandering around the machinery. Tools and debris litter the sandy floor, and the wreck creaks as water\r\nflows through. ");
@@ -191,7 +191,7 @@
 
 
 
-            whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclear_accident);
+            whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclearAccident);
 
             shipwreck.SetExits(navigation_room, captains_quarter, whirlpool, engine_room);
 
@@ -202,7 +202,7 @@
             coralReefs.SetExit("north", whirlpool);
 
 
-            nuclear_accident.SetExit("east", whirlpool);
+            nuclearAccident.SetExit("east", whirlpool);
 
             currentRoom = beach;
         }
@@ -499,6 +499,27 @@
             }
         }
 
+        private void MoveItem(string firstWord, string secondWord, List<Item> sourceList, List<Item> targerList)
+        {
+            Item movedItem = ItemManager.FindItem(secondWord, sourceList);
+
+            ItemManager.MoveItem(secondWord, sourceList, targerList);
+
+            if (movedItem == null)
+            {
+                return;
+            }
+
+            if (firstWord == "take")
+            {
+                Console.WriteLine("You took " + secondWord + "!");
+            }
+            else if (firstWord == "drop")
+            {
+                Console.WriteLine("You dropped " + secondWord + "!");
+            }
+
+        }
 
         private static void PrintWelcome()
         {
@@ -592,33 +613,6 @@
             var completitionPercentage = (double)(100 * completed) / minigameCount;
 
             return completitionPercentage;
-        }
-
-
-
-
-
-
-        private void MoveItem(string firstWord, string secondWord, List<Item> sourceList, List<Item> targerList)
-        {
-            Item movedItem = ItemManager.FindItem(secondWord, sourceList);
-
-            ItemManager.MoveItem(secondWord, sourceList, targerList);
-
-            if (movedItem == null)
-            {
-                return;
-            }
-
-            if (firstWord == "take")
-            {
-                Console.WriteLine("You took " + secondWord + "!");
-            }
-            else if (firstWord == "drop")
-            {
-                Console.WriteLine("You dropped " + secondWord + "!");
-            }
-
         }
     }
 
