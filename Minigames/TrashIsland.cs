@@ -167,7 +167,7 @@ public class TrashIsland : Minigame
 
     }
 
-    private void Stop()
+    public override void Stop()
     {
         continuePlaying = false;
         isStopped = true;
