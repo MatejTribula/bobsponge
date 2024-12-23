@@ -630,7 +630,6 @@
             }
 
             var completitionPercentage = (double)(100 * completed) / minigameCount;
-
             return completitionPercentage;
         }
     }
