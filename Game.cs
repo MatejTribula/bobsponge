@@ -20,7 +20,7 @@
 
         private void CreateRooms()
         {
-            Room? beach = new("BEACH", "You are on a small sandy beach, the sky is blue, the water is clear, you feel a cool breeze from the sea hitting your face. You can see the SEA in front of you facing NORTH");
+            Room? beach = new("BEACH", "You are on a small sandy beach, the sky is blue, the water is clear, you feel a cool breeze from the sea hitting your face.");
 
 
             ItemManager.AddItem("branch", "just a normal branch", true, false, beach.Items);
@@ -30,14 +30,15 @@
             ItemManager.AddItem("crab", "just a normal crab", true, false, chest.Items);
 
             NPC patrick = new NPC("patrick", "Heeeeey!");
-            patrick.AddQA("who are you?", "I AM PATRICK THE STAR!!");
+            patrick.AddQA("who are you?", "I AM PATRICK THE STOOOOOONE!!");
+            patrick.AddQA("I am scared!", "YOU BETTER BE! OCEAN IS A VERY DANGEROUS PLACE! HOWEVER, BEAUTIFUL!");
             beach.SetNPC("patrick", patrick);
 
             // kader's level
             //center
 
 
-            Room? seaLevel = new("SEA LEVEL, CENTER", "You are at the sea level. You stand at the edge of the sparkling ocean. Ahead of you lies an adventure that could save the seas. Are you ready?");
+            Room? seaLevel = new("SEA LEVEL, CENTER", "You are at the sea level. You stand at the edge of the sparkling ocean. Ahead of you lies an adventure that could save the seas. Be careful you might not be able to come here again! Are you ready?");
 
             //coastline location
 
@@ -64,9 +65,9 @@
             coastline.Minigame = minigameCoastline;
             minigames.Add(minigameCoastline);
 
-            Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore, however you can vaguely see a SHIPWRECK to the NORTH, TRASH ISLAND to the EAST, CORAL REEFS to the SOUTH and a NUCLEAR ACCIDENT to the WEST");
+            Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore.");
 
-            Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over. You can go back to the WHIRLPOOL by going SOUTH");
+            Room? shipwreck = new("SHIPWRECK", "You have entered an underwater shipwreck. The ship looks like it sailed\r\nthe seas hundreds of years ago, however it looks just as grand. There are\r\nwebs and trash caught on its worn body, algae growing all over.");
 
 
             #region matejLVL
@@ -125,15 +126,15 @@
             #endregion
 
 
-            Room? coralReefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired. You can go back to the WHIRLPOOL by going NORTH");
+            Room? coralReefs = new("CORAL REEFS", "You are under the water in someplace tropical and once a paradise.\r\nYou see a huge coral reef before you looking like a smoker's lung, grey, scarred\r\nand tired.");
 
             Minigame minigameCoralReefs = new CoralReef();
             coralReefs.Minigame = minigameCoralReefs;
             minigames.Add(minigameCoralReefs);
 
 
-            
-            Room? nuclearAccident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
+
+            Room? nuclearAccident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation.");
             Minigame NuclearAccident = new NuclearAccident();
             nuclearAccident.Minigame = NuclearAccident;
             minigames.Add(NuclearAccident);
