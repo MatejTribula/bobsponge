@@ -63,7 +63,7 @@ public class NuclearAccident : Minigame
             }
         }
         Console.WriteLine("You now found the Main control room");
-        Console.WriteLine("Press the red button to close the gate./n type \"press\"");
+        Console.WriteLine("Press the red button to close the gate type \"press\"");
         string? inp = Console.ReadLine();
         if (string.Equals(inp, "Press", StringComparison.OrdinalIgnoreCase))
         {

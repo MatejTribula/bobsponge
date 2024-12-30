@@ -13,8 +13,6 @@ public class CoralReef : Minigame
 
     public override void Play()
     {
-
-        Console.WriteLine("KOKOT");
         var triviaQuestions = new List<(string question, string answer)>{
             ("Where are most coral reefs located globally? \n a: On the equator \n b: In deep oceans \n c: Southeast Asia \n d: Between 30° north and south of the equator ", "d"),
             ("Which temperature is ideal for coral growth? \n a: 20°C \n b: Over 30°C \n c: 25°C \n d: 35°C ", "c"),

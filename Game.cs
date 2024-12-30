@@ -61,9 +61,6 @@
             seagullHaven.Minigame = ScareSeagull;
             minigames.Add(ScareSeagull);
 
-            Minigame minigameCoastline = new Coastline();
-            coastline.Minigame = minigameCoastline;
-            minigames.Add(minigameCoastline);
 
             Room? whirlpool = new("WHIRLPOOL", "You are floating in the water. The nearest land is a bit too far for comfort.\r\nIn front of you is a large powerful whirlpool. You cannot go back anymore.");
 
@@ -141,7 +138,7 @@
 
 
             #region EngineRoom
-            Room? engine_room = new("ENGINE ROOM", "The underwater engine room is a gloomy sight. Rusty machines are covered in seaweed and\r\nbarnacles, and oil shimmers in the water. You see some type od ghost figure wandering around the machinery. Tools and debris litter the sandy floor, and the wreck creaks as water\r\nflows through. ");
+            Room? engineRoom = new("ENGINE ROOM", "The underwater engine room is a gloomy sight. Rusty machines are covered in seaweed and\r\nbarnacles, and oil shimmers in the water. You see some type od ghost figure wandering around the machinery. Tools and debris litter the sandy floor, and the wreck creaks as water\r\nflows through. ");
             NPC ghost = new NPC("ghost", "Oh hello, I didn't expect visitors today.");
             ghost.AddQA("Who are you?", "I am Captain Bartholomew Tidewalker, master of this vessel, once the proud 'Wave Reaper.' She sailed these seas, but now she lies here, broken as am I.");
             ghost.AddQA("What happened to your ship?", "Greed happened. We sought the sea's bounty but took more than we should. Nets spread wide, catching not just fish but the very soul of the ocean.\r\nStorms followed, as if the sea herself sought vengeance. The 'Wave Reaper' met her end here.");
@@ -149,29 +146,29 @@
             ghost.AddQA("What is bycatch?", "When our nets swept the sea, they caught more than the fish we sought. Dolphins, turtles, even coral—a wasteful harvest.\r\nLives lost, ecosystems shattered. Bycatch is the cost of our recklessness.");
             ghost.AddQA("Did you ever try to change your ways?", "[Pauses] By the time I realized the harm, it was too late. I was trapped in contracts, debts, and lies. Now, my penance is to drift here, warning others.");
             ghost.AddQA("What can I do to help the ocean?", "Learn from my mistakes. Advocate for sustainable fishing, respect marine laws, and protect the ocean's fragile balance. The sea needs champions, not plunderers.");
-            engine_room.SetNPC("ghost", ghost);
+            engineRoom.SetNPC("ghost", ghost);
             Container locker = new Container("locker");
             ItemManager.AddItem("fishing rod with illegal bait", "A fishing rod with a line and a type of bait that is prohibited by international fishing laws, like certain lures meant for endangered species.A piece of evidence that ties the shipwreck to unlawful practices ", true, false, locker.Items);
             ItemManager.AddItem("shiny piece", "piece of an ancient artifact", false, false, locker.Items);
-            engine_room.SetContainer(locker);
+            engineRoom.SetContainer(locker);
 
             #endregion
 
             #region CapsQuarter
-            Room? captains_quarter = new("CAPTAIN'S QUARTER", "The captain's quarters are dim and cluttered, with broken furniture and a shattered compass\r\nlying on the floor. Papers and maps float aimlessly, showing signs of age and water damage. A logbook on the desk,\r\nsurprisingly intact, reveals records of illegal fishing activities. In the corner, a chest is blocked by a ghost net tied in three\r\ntight knots, making it hard to reach.  ");
+            Room? captainsQuarter = new("CAPTAIN'S QUARTER", "The captain's quarters are dim and cluttered, with broken furniture and a shattered compass\r\nlying on the floor. Papers and maps float aimlessly, showing signs of age and water damage. A logbook on the desk,\r\nsurprisingly intact, reveals records of illegal fishing activities. In the corner, a chest is blocked by a ghost net tied in three\r\ntight knots, making it hard to reach.  ");
             Container capsChest = new Container("captains-chest");
-            captains_quarter.SetContainer(capsChest);
+            captainsQuarter.SetContainer(capsChest);
             ItemManager.AddItem("stone piece", "piece of an ancient artifact ", false, false, capsChest.Items);
             ItemManager.AddItem("binoculars", "these were once used by the captain of the ship to see if there is any incoming danger", true, false, capsChest.Items);
             Minigame minigameCapsQuarter = new KnotUntanglingMinigame();
-            captains_quarter.Minigame = minigameCapsQuarter;
+            captainsQuarter.Minigame = minigameCapsQuarter;
             minigames.Add(minigameCapsQuarter);
             #endregion
 
             #region NavigationRoom
-            Room? navigation_room = new("NAVIGATION ROOM", "The navigation room is dimly lit by a soft glow from glowing algae on the walls. An octopus\r\nwith changing colors sits on the broken ship’s wheel, its arms slowly moving over the rusty controls.\r\nAt the back ofthe room, a barrel is stuck under a ghost net. The octopus glances at you with curious, sharp eyes,\r\nas if it knows the barrel is important.");
+            Room? navigationRoom = new("NAVIGATION ROOM", "The navigation room is dimly lit by a soft glow from glowing algae on the walls. An octopus\r\nwith changing colors sits on the broken ship’s wheel, its arms slowly moving over the rusty controls.\r\nAt the back ofthe room, a barrel is stuck under a ghost net. The octopus glances at you with curious, sharp eyes,\r\nas if it knows the barrel is important.");
             Container barrel = new Container("barrel");
-            navigation_room.SetContainer(barrel);
+            navigationRoom.SetContainer(barrel);
             ItemManager.AddItem("glass piece", "piece of an ancient artifact", false, false, barrel.Items);
             ItemManager.AddItem("antique coins", "currency from different ports visited by the ship", true, false, barrel.Items);
             NPC octopus = new NPC("octopus", "Hello there, traveller");
@@ -181,9 +178,9 @@
             octopus.AddQA("Have you seen ghost nets?", "Yes, unfortunately. Ghost nets are silent killers. I’ve watched turtles, dolphins, and even my octopus cousins get tangled in them. It’s heartbreaking. That’s why you need to be careful about your choices up there on the surface!");
             octopus.AddQA("Why are there so many fish here?", "Shipwrecks often become artificial reefs, attracting marine life. Ironically, this place, once a harbinger of destruction, now gives shelter to the very creatures it harmed.");
             octopus.AddQA("Can you teach me something about the ocean, before i continue exploring the ship?", "Of course! Did you know octopuses have blue blood? Or that the ocean produces more oxygen than all the forests combined? It’s the heart of life on Earth—literally and figuratively.");
-            navigation_room.SetNPC("octopus", octopus);
+            navigationRoom.SetNPC("octopus", octopus);
             Minigame navigationMinigame = new NetCuttingMinigame();
-            navigation_room.Minigame = navigationMinigame;
+            navigationRoom.Minigame = navigationMinigame;
             minigames.Add(navigationMinigame);
             #endregion
 
@@ -199,7 +196,11 @@
 
             whirlpool.SetExits(shipwreck, trashIsland, coralReefs, nuclearAccident);
 
-            shipwreck.SetExits(navigation_room, captains_quarter, whirlpool, engine_room);
+            shipwreck.SetExits(navigationRoom, captainsQuarter, whirlpool, engineRoom);
+            navigationRoom.SetExit("south", shipwreck);
+            captainsQuarter.SetExit("west", shipwreck);
+            engineRoom.SetExit("east", shipwreck);
+
 
             trashIsland.SetExits(junkCreater, seaSludge, glassCanyon, whirlpool);
 
