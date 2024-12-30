@@ -46,7 +46,6 @@
             Minigame PickTrash = new PickTrash();
             coastline.Minigame = PickTrash;
             minigames.Add(PickTrash);
-
             //turtle lagoon
 
             Room? turtleLagoon = new("SEA LEVEL, TURTLE LAGOON", "Welcome! Turtles nest here. They need your help to stay safe and avoid dangerous plastic waste.");
@@ -132,7 +131,13 @@
             coralReefs.Minigame = minigameCoralReefs;
             minigames.Add(minigameCoralReefs);
 
+
+            
             Room? nuclearAccident = new("NUCLEAR ACCIDENT", "You have entered the site of what used to be a manmade island\r\nwhich was occupied by one of the world's most powerful nuclear reactors, until it wiped itself\r\noff the face of the earth and left the surrounding ocean an aquatic wasteland filled with debris and radiation. You can go back to the WHIRLPOOL by going EAST");
+            Minigame NuclearAccident = new NuclearAccident();
+            nuclearAccident.Minigame = NuclearAccident;
+            minigames.Add(NuclearAccident);
+
 
             #region EngineRoom
             Room? engine_room = new("ENGINE ROOM", "The underwater engine room is a gloomy sight. Rusty machines are covered in seaweed and\r\nbarnacles, and oil shimmers in the water. You see some type od ghost figure wandering around the machinery. Tools and debris litter the sandy floor, and the wreck creaks as water\r\nflows through. ");
