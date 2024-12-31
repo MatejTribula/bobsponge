@@ -32,7 +32,7 @@ public class NuclearAccident : Minigame {
  Mechanics obj = new Mechanics(maze);
  int [] finalPosition = new int[] {0,1};
  obj.currentPosition = new int[] {14,14};
- Console.WriteLine("Hello Player. There was a nuclear leak in the plant that is heading towards the ocean, which could result in the disaster. In order to prevent it, you have to navigate towards the control panel in the main block to shut down the gate.");
+ Console.WriteLine("Hello Player. There was a nuclear leak in the plant that is heading towards the ocean, which could result in the disaster. In order to prevent it, you have to navigate towards the control panel in the main block to activate the ECOS. Talk to the Engineer for more details");
  Console.WriteLine("Your position in the plant is determined by X");
  while(ArraysEqual(finalPosition, obj.currentPosition) == false) {
  Console.WriteLine("Enter a W/A/S/D symbol to move");
@@ -55,14 +55,19 @@ else if  (result == "S" || result == "s")  {
     }
  }
 Console.WriteLine("You now found the Main control room");
-Console.WriteLine("Press the red button to close the gate./n type \"press\"");
+Console.WriteLine("To initiate the ECOS protocol, enter the code given by the Chief Engineer");
+while (IsComplete==false) {
 string? inp = Console.ReadLine();
-if (string.Equals(inp, "Press", StringComparison.OrdinalIgnoreCase)) {
+if (string.Equals(inp, "PROMETHEUS-7")) {
  Console.WriteLine("Congratualations! You successfully completed the level");
+  IsComplete = true;
 }
 else {
-Console.WriteLine("Please enter \"press\"");
+Console.WriteLine("Please enter the correct code");
  }
+}
+
+
     }
 
  static bool ArraysEqual (int[] a, int[] b) {

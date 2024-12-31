@@ -139,6 +139,18 @@
             minigames.Add(NuclearAccident);
 
 
+NPC engineer = new("Engineer", "Thank God you're here! We have a critical situation.");
+engineer.AddQA("What's happening?", "There's a severe breach in Reactor 3. Radioactive coolant is leaking and we're on the brink of a catastrophic meltdown.");
+engineer.AddQA("What do I need to do?", "You need to get to the main control room immediately. It's our only hope to prevent this disaster.");
+engineer.AddQA("Where's the control room?", "The control room is in the central building, but the usual route is blocked by debris. You'll need to find an alternative path through the facility.");
+engineer.AddQA("What should I do when I get there?", "Once in the control room, you must initiate the Emergency Coolant Override System (ECOS). It's our last line of defense.");
+engineer.AddQA("How do I activate the ECOS?", "You'll need to login to the main terminal. Use access code: PROMETHEUS-7. Then, you must simultaneously engage the two master switches on opposite sides of the control panel.");
+engineer.AddQA("Are there any risks?", "The facility is highly unstable. Watch for structural damage, radiation leaks, and potential steam explosions. Your protective suit will only shield you for a limited time.");
+engineer.AddQA("How much time do we have?", "Based on our calculations, we have less than 30 minutes before the situation becomes irreversible. You need to move fast!");
+engineer.AddQA("Is there anyone else who can help?", "Most of the staff has been evacuated. You're our last hope. I'll guide you as best I can through the facility's communication system.");
+nuclearAccident.SetNPC("Engineer", engineer);
+
+
             #region EngineRoom
             Room? engine_room = new("ENGINE ROOM", "The underwater engine room is a gloomy sight. Rusty machines are covered in seaweed and\r\nbarnacles, and oil shimmers in the water. You see some type od ghost figure wandering around the machinery. Tools and debris litter the sandy floor, and the wreck creaks as water\r\nflows through. ");
             NPC ghost = new NPC("ghost", "Oh hello, I didn't expect visitors today.");
@@ -381,7 +393,7 @@
                         }
 
 
-                        Container openedContainer = currentRoom.Containers.Find(container => container.Name.Equals(command.SecondWord, StringComparison.OrdinalIgnoreCase));
+                        Container ?openedContainer = currentRoom.Containers.Find(container => container.Name.Equals(command.SecondWord, StringComparison.OrdinalIgnoreCase));
 
                         if (openedContainer == null)
                         {
