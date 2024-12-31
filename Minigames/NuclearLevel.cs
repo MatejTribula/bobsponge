@@ -11,7 +11,7 @@ public class NuclearAccident : Minigame
     public override void Play()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-        Mazeclass maze = new Mazeclass();
+        MazeClass maze = new MazeClass();
         maze.Maze = new bool[,] {
         {false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
     {false, true,  true,  false, true,  true,  true,  true,  false, true,  true,  true,  false, true,  true,  false},
@@ -91,8 +91,8 @@ public class NuclearAccident : Minigame
 
 public class Mechanics
 {
-    Mazeclass maze2;
-    public Mechanics(Mazeclass maze)
+    MazeClass maze2;
+    public Mechanics(MazeClass maze)
     {
         maze2 = maze;
     }
@@ -194,7 +194,7 @@ public class Mechanics
     }
 }
 
-public class Mazeclass
+public class MazeClass
 {
     private bool[,] maze = new bool[5, 5];
     public bool[,] Maze
